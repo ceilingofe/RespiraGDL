@@ -1,0 +1,12 @@
+# Dueño de cada carpeta. Cuando Juan, Carlos y Damaris acepten la invitación,
+# quiten el "#" de su línea y pongan su usuario real de GitHub.
+*             @ceilingofe
+/firmware/    @ceilingofe
+/hardware/    @ceilingofe
+# /backend/     @usuario-juan
+# /ml/          @usuario-juan
+# /data/        @usuario-juan
+# /frontend/    @usuario-carlos
+# /bot/         @usuario-carlos
+# /docs/        @usuario-damaris
+# /entregables/ @usuario-damaris

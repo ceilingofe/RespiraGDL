@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+node_modules/
+dist/
+.env
+firmware/**/include/config.h
+firmware/**/.pio/
+data/raw/*
+!data/raw/.gitkeep
+*.sqlite3
+.DS_Store

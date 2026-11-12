@@ -1,0 +1,8 @@
+componente,cantidad_por_salon,precio_aprox_mxn,notas
+ESP32 DevKit,2,300,uno dentro y uno fuera
+Sensor PMS5003,2,900,precio por los dos; verificar existencia en GDL
+Ventilador de caja 20 pulgadas,1,900,
+Filtro MERV-13 20x20,4,1200,si no hay MERV-13 usar el grado más alto disponible
+Cinta y cartón,1,100,
+LED RGB o tira para semáforo,1,80,
+Fuente USB 5V,2,200,
