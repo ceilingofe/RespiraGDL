@@ -1,0 +1,123 @@
+/* Respira GDL · tokens de diseño
+   Fuente de verdad: docs/diseno/README.md. No escriban hex sueltos en componentes. */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+:root {
+  /* Marca */
+  --rg-ink: #0b4143;
+  --rg-forest: #1c4623;
+  --rg-leaf: #1c702b;
+  --rg-teal: #0b585b;
+  --rg-text: #1e1e1e;
+  --rg-muted: #59735f;
+  --rg-sage: #ceddd1;
+  --rg-white: #ffffff;
+
+  /* Superficies pastel */
+  --rg-mint: #eeffec;
+  --rg-mint-2: #f4fff2;
+  --rg-aqua: #e7fff7;
+  --rg-sky: #f3fbff;
+  --rg-ice: #ebfdff;
+  --rg-lilac: #eff3ff;
+  --rg-mist: #f1f6f7;
+
+  /* Píldoras */
+  --rg-pill-olive: #d0dc9f;
+  --rg-pill-green: #defed4;
+  --rg-pill-blue: #d4efff;
+
+  /* Semáforo de calidad del aire (solo datos) */
+  --rg-aq-good: #1e7b34;
+  --rg-aq-good-bg: #e6f8e8;
+  --rg-aq-ok: #8a6400;
+  --rg-aq-ok-bg: #fff7da;
+  --rg-aq-bad: #b23c0a;
+  --rg-aq-bad-bg: #ffe9de;
+  --rg-aq-vbad: #a3123a;
+  --rg-aq-vbad-bg: #fde7ec;
+  --rg-aq-ext: #5b2a8c;
+  --rg-aq-ext-bg: #f1e8fb;
+
+  /* Temas del hero: Aula Limpia, Plan de asma, Pronóstico */
+  --rg-theme-green-title: var(--rg-forest);
+  --rg-theme-green-pill: var(--rg-pill-olive);
+  --rg-theme-green-card: var(--rg-mint);
+  --rg-theme-aqua-title: #0e5e5c;
+  --rg-theme-aqua-pill: #7fd6d3;
+  --rg-theme-aqua-card: var(--rg-ice);
+  --rg-theme-blue-title: #0f3b6e;
+  --rg-theme-blue-pill: #9cc3ec;
+  --rg-theme-blue-card: var(--rg-sky);
+
+  /* Tipografía */
+  --rg-font: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --rg-fs-hero: clamp(2.75rem, 6vw, 5rem);
+  --rg-fs-h2: clamp(1.75rem, 3.2vw, 2.5rem);
+  --rg-fs-h3: 1.25rem;
+  --rg-fs-body: 1rem;
+  --rg-fs-small: 0.8125rem;
+  --rg-tracking-tight: -0.02em;
+
+  /* Forma */
+  --rg-r-sm: 12px;
+  --rg-r-md: 20px;
+  --rg-r-lg: 24px;
+  --rg-r-xl: 32px;
+  --rg-r-pill: 999px;
+  --rg-r-blob: 120px 24px 120px 24px;
+
+  /* Espacio */
+  --rg-space-1: 4px;
+  --rg-space-2: 8px;
+  --rg-space-3: 16px;
+  --rg-space-4: 24px;
+  --rg-space-5: 32px;
+  --rg-space-6: 48px;
+  --rg-space-7: 64px;
+  --rg-space-section: clamp(64px, 10vw, 128px);
+  --rg-container: 1200px;
+
+  /* Sombra */
+  --rg-shadow-soft: 0 8px 32px rgba(11, 65, 67, 0.06);
+  --rg-shadow-hover: 0 16px 40px rgba(11, 65, 67, 0.1);
+
+  /* Movimiento */
+  --rg-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --rg-dur-fast: 200ms;
+  --rg-dur: 400ms;
+  --rg-dur-slow: 600ms;
+}
+
+/* Base */
+html { font-family: var(--rg-font); color: var(--rg-text); background: var(--rg-white); }
+h1, h2, h3 { color: var(--rg-ink); font-weight: 600; line-height: 1.1; letter-spacing: var(--rg-tracking-tight); }
+
+/* Utilidades mínimas para que todos arranquen igual */
+.rg-pill {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 40px; padding: 0 22px; border: 0; border-radius: var(--rg-r-pill);
+  font: 500 var(--rg-fs-small) / 1 var(--rg-font); color: var(--rg-ink);
+  background: var(--rg-pill-green); cursor: pointer;
+  transition: transform var(--rg-dur-fast) var(--rg-ease), filter var(--rg-dur-fast) var(--rg-ease);
+}
+.rg-pill:hover { transform: translateY(-1px); filter: brightness(0.97); }
+.rg-pill--blue { background: var(--rg-pill-blue); }
+.rg-pill--olive { background: var(--rg-pill-olive); }
+.rg-pill--primary { background: var(--rg-teal); color: var(--rg-white); }
+
+.rg-card {
+  border-radius: var(--rg-r-xl); padding: var(--rg-space-5);
+  background: var(--rg-mint); box-shadow: var(--rg-shadow-soft);
+  transition: transform var(--rg-dur) var(--rg-ease), box-shadow var(--rg-dur) var(--rg-ease);
+}
+.rg-card:hover { transform: translateY(-4px); box-shadow: var(--rg-shadow-hover); }
+
+.rg-reveal { opacity: 0; transform: translateY(24px); transition: opacity var(--rg-dur) var(--rg-ease), transform var(--rg-dur) var(--rg-ease); }
+.rg-reveal.is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .rg-reveal { opacity: 1; transform: none; }
+}

@@ -10,6 +10,10 @@ Respira GDL baja el aire contaminado que respiran los niños dentro del salón y
 
 > No es una herramienta de diagnóstico. Orienta, recuerda y alerta. Solo usa datos agregados o anónimos.
 
+## Diseño
+
+La guía de diseño del proyecto está en [`docs/diseno/README.md`](docs/diseno/README.md) y los tokens en [`frontend/src/styles/tokens.css`](frontend/src/styles/tokens.css). Todo lo visual la sigue.
+
 ## Estructura
 
 | Carpeta | Qué hay | Responsable |
