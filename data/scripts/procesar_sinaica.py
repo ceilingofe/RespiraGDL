@@ -72,7 +72,8 @@ def resumen(df: pd.DataFrame) -> pd.DataFrame:
             "horas": len(g),
             "pct_pm25_con_dato": round(100 * g["pm25"].notna().mean(), 1) if "pm25" in g else 0,
             "pm25_promedio": round(g["pm25"].mean(), 1) if "pm25" in g else None,
-            "dias_promedio24h_mayor_45": int((g.set_index("fecha_hora")["pm25"].resample("D").mean() > 45).sum())
+            # 25 µg/m³ = límite de PM2.5 a 24 h de la NOM-025-SSA1-2021 vigente desde enero de 2026
+            "dias_promedio24h_mayor_25": int((g.set_index("fecha_hora")["pm25"].resample("D").mean() > 25).sum())
             if "pm25" in g else None,
         })
     return pd.DataFrame(filas)
