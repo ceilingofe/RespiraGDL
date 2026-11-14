@@ -3,6 +3,8 @@ uvicorn[standard]
 sqlmodel
 httpx
 pandas
+openpyxl
 scikit-learn
+joblib
 python-dotenv
 pytest

@@ -1,0 +1,5 @@
+estacion,desde,hasta,horas,pct_pm25_con_dato,pm25_promedio,dias_promedio24h_mayor_25
+Centro,2020-01-01,2024-12-31,43848,70.0,20.0,372
+Las Pintas,2020-01-01,2024-12-31,43848,66.7,39.5,812
+Miravalle,2020-01-01,2024-12-31,43848,68.6,25.2,571
+Santa Fe,2020-01-01,2024-12-31,43837,42.5,27.2,412
