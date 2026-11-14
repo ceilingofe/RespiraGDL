@@ -1,0 +1,45 @@
+{
+  "estacion": "Miravalle",
+  "sintetico": false,
+  "generado": "2026-11-14T06:58:00",
+  "dias_entrenamiento": 938,
+  "dias_prueba": 283,
+  "periodo_entrenamiento": [
+    "2020-01-01",
+    "2023-12-31"
+  ],
+  "periodo_prueba": [
+    "2024-01-01",
+    "2024-12-30"
+  ],
+  "persistencia": {
+    "mae": 11.53,
+    "rmse": 17.47,
+    "acierto_semaforo_pct": 73.1,
+    "dias_amarillo_o_rojo_detectados_pct": 79.1,
+    "falsas_alarmas_pct": 21.4
+  },
+  "modelo": {
+    "mae": 10.42,
+    "rmse": 14.89,
+    "acierto_semaforo_pct": 72.4,
+    "dias_amarillo_o_rojo_detectados_pct": 83.5,
+    "falsas_alarmas_pct": 26.3
+  },
+  "mejora_mae_pct": 9.6,
+  "se_usa": "modelo",
+  "variables": [
+    "pm_escolar",
+    "pm_dia",
+    "pm_tarde",
+    "pm_max",
+    "pm_escolar_ayer",
+    "pm_media_3d",
+    "tmp",
+    "hr",
+    "vv",
+    "dow_manana",
+    "mes_sin",
+    "mes_cos"
+  ]
+}
