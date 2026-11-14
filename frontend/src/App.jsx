@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Navbar, Footer, useReveal } from "./components/Layout.jsx";
-import Landing from "./pages/Landing.jsx";
-import Tablero from "./pages/Tablero.jsx";
-import Maestro from "./pages/Maestro.jsx";
+import ErrorBoundary from "./components/ErrorBoundary.jsx";
+import { pageFor } from "./routes.js";
 
-// Rutas con hash para que funcione en GitHub Pages sin servidor: #/, #/tablero, #/maestro, #/#seccion
+// Rutas con hash para que funcione en GitHub Pages sin servidor: #/, #/aula, #/tablero, #/maestro, #/#seccion.
+// Para agregar una página, regístrala en routes.js.
 function parse() {
   const raw = window.location.hash.replace(/^#/, "") || "/";
   const [path, anchor] = raw.split("#");
@@ -24,11 +24,13 @@ export default function App() {
   }, [path, anchor]);
   useReveal(path);
 
-  const Page = path === "/tablero" ? Tablero : path === "/maestro" ? Maestro : Landing;
+  const Page = pageFor(path);
   return (
     <>
       <Navbar route={path} />
-      <Page />
+      <ErrorBoundary resetKey={path}>
+        <Page />
+      </ErrorBoundary>
       <Footer />
     </>
   );
