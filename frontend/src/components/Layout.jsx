@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ROUTES } from "../routes.js";
 
 export function Logo({ big }) {
   return (
@@ -15,13 +16,8 @@ export function Logo({ big }) {
 export function Navbar({ route }) {
   const [open, setOpen] = useState(false);
   useEffect(() => setOpen(false), [route]);
-  const links = [
-    ["#/", "Inicio"],
-    ["#/#como", "Cómo funciona"],
-    ["#/#escuelas", "Escuelas"],
-    ["#/tablero", "Tablero"],
-    ["#/maestro", "Maestro"],
-  ];
+  const pages = ROUTES.filter((r) => r.nav).map((r) => [`#${r.path}`, r.nav]);
+  const links = [pages[0], ["#/#como", "Cómo funciona"], ...pages.slice(1)];
   return (
     <header className="rg-nav">
       <Logo />
