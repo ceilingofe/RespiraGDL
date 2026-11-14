@@ -7,6 +7,7 @@ import {
   MOCK_ESCUELA, MOCK_SALONES, MOCK_LECTURAS, MOCK_PRONOSTICO,
   // API_URL, // <- descomentar al conectar la API
 } from "../data/demo.js";
+import AvisoFamilias from "../components/AvisoFamilias.jsx";
 
 // Píldora del semáforo. `color` es lo que manda la API: "verde" | "amarillo" | "rojo".
 export function Semaforo({ color, pm, big, prefijo }) {
@@ -256,6 +257,11 @@ export default function Tablero() {
               )}
             </div>
           </section>
+
+          <AvisoFamilias datos={{
+            escuela: escuela.nombre, semaforo: pronostico.semaforo,
+            pm25: pronostico.pm25, familias: pronostico.familiasAviso,
+          }} />
         </div>
       </div>
     </main>

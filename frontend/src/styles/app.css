@@ -306,3 +306,55 @@ p { line-height: 1.6; }
   .rg-table--salones td, .rg-table--salones th { padding-right: 6px; }
   .rg-panel { padding: var(--rg-space-4) var(--rg-space-3); }
 }
+
+/* Aviso a familias: mensaje editable, envío inmediato y hora programada */
+.rg-aviso { gap: var(--rg-space-4); }
+.rg-field { display: flex; flex-direction: column; gap: var(--rg-space-2); }
+.rg-field > label, .rg-field__head label { font-weight: 600; font-size: var(--rg-fs-small); color: var(--rg-ink); }
+.rg-field__head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--rg-space-2); }
+.rg-field__foot { display: flex; justify-content: space-between; gap: var(--rg-space-3); }
+.rg-field__foot span:last-child { flex: none; }
+.rg-field__row { display: flex; align-items: center; flex-wrap: wrap; gap: var(--rg-space-2) var(--rg-space-3); font-size: 0.9375rem; color: var(--rg-text); }
+.rg-textarea {
+  width: 100%; resize: vertical; min-height: 300px; border: 0; border-radius: var(--rg-r-md);
+  padding: var(--rg-space-3); background: var(--rg-white); box-shadow: var(--rg-shadow-soft);
+  font: 400 0.9375rem / 1.5 var(--rg-font); color: var(--rg-text);
+}
+.rg-time {
+  min-height: 44px; padding: 0 var(--rg-space-3); border: 0; border-radius: var(--rg-r-pill);
+  background: var(--rg-white); box-shadow: var(--rg-shadow-soft);
+  font: 600 1rem var(--rg-font); color: var(--rg-ink);
+}
+
+/* Aviso a familias: tarjeta pequeña que abre una ventana modal */
+.rg-aviso-mini {
+  width: 100%; border: 0; text-align: left; cursor: pointer; gap: var(--rg-space-2);
+  font-family: var(--rg-font); color: var(--rg-text); box-shadow: var(--rg-shadow-soft);
+  transition: transform var(--rg-dur) var(--rg-ease), box-shadow var(--rg-dur) var(--rg-ease);
+}
+.rg-aviso-mini:hover { transform: translateY(-4px); box-shadow: var(--rg-shadow-hover); }
+.rg-aviso-mini__prev {
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  font-size: var(--rg-fs-small); line-height: 1.5;
+}
+.rg-aviso-mini__cta { color: var(--rg-teal); font-weight: 600; font-size: var(--rg-fs-small); }
+
+.rg-modal {
+  width: min(640px, calc(100vw - 2 * var(--rg-space-3))); max-height: calc(100vh - 2 * var(--rg-space-4));
+  padding: 0; border: 0; border-radius: var(--rg-r-xl); background: var(--rg-sky);
+  box-shadow: var(--rg-shadow-hover); color: var(--rg-text); overflow: auto;
+}
+.rg-modal[open] { animation: rg-modal-in var(--rg-dur) var(--rg-ease); }
+.rg-modal::backdrop { background: rgba(11, 65, 67, 0.4); }
+.rg-modal__body { display: flex; flex-direction: column; padding: var(--rg-space-5); }
+.rg-modal__head { display: flex; justify-content: space-between; align-items: center; gap: var(--rg-space-3); }
+.rg-modal__head h2 { font-size: var(--rg-fs-h3); }
+.rg-modal__close {
+  flex: none; width: 44px; height: 44px; border: 0; border-radius: var(--rg-r-pill);
+  background: var(--rg-white); color: var(--rg-ink); font-size: 1.5rem; line-height: 1; cursor: pointer;
+}
+@keyframes rg-modal-in { from { opacity: 0; transform: translateY(16px) scale(0.98); } to { opacity: 1; transform: none; } }
+@media (max-width: 560px) {
+  .rg-modal__body { padding: var(--rg-space-4) var(--rg-space-3); }
+  .rg-textarea { min-height: 220px; }
+}
