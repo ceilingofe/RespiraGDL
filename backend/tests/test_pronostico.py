@@ -33,7 +33,8 @@ def test_persistencia():
     assert manana["semaforo"] in ("verde", "amarillo", "rojo")
 
 
-def test_con_modelo(tmp_path, monkeypatch):
+def _preparar_serie_y_modelo(tmp_path, monkeypatch):
+    """Serie sintética (termina en 2023, o sea desactualizada) + modelo entrenado con ella."""
     import joblib
     from sklearn.ensemble import HistGradientBoostingRegressor
 
@@ -46,6 +47,31 @@ def test_con_modelo(tmp_path, monkeypatch):
     monkeypatch.setenv("MODELO_PATH", str(tmp_path / "m.joblib"))
     monkeypatch.setenv("SERIE_SIMAJ", str(tmp_path / "s.csv"))
     monkeypatch.setenv("ESTACION_REFERENCIA", "Sintética")
+
+
+def test_con_modelo(tmp_path, monkeypatch):
+    _preparar_serie_y_modelo(tmp_path, monkeypatch)
     with db.conexion() as conn:
         r = pronostico_actual(conn, get_settings())
     assert r["fuente"] == "modelo" and r["dias"][1]["pm"] >= 0
+
+
+def test_sensor_manda_si_serie_desactualizada(tmp_path, monkeypatch):
+    _preparar_serie_y_modelo(tmp_path, monkeypatch)
+    with db.conexion() as conn:
+        db.insertar_lectura(conn, nodo_id="esc-mir-fuera", escuela="miravalle", salon_id=None,
+                            ubicacion="fuera", pm25=40, ts=db.ahora().replace(hour=10, minute=0, second=0))
+        r = pronostico_actual(conn, get_settings())
+    assert r["fuente"] == "sensor" and r["desactualizado"] is False
+    assert r["dias"][0]["dia"] == "Hoy" and r["dias"][0]["pm"] == 40 and r["dias"][1]["pm"] == 40
+    assert r["modelo_evaluado"] == {"mae": 1}  # el modelo existe y se reporta aunque no se use
+    assert "desactualizada" in r["aviso"]
+
+
+def test_serie_desactualizada_sin_sensor(tmp_path, monkeypatch):
+    _preparar_serie_y_modelo(tmp_path, monkeypatch)
+    with db.conexion() as conn:
+        r = pronostico_actual(conn, get_settings())
+    assert r["fuente"] == "modelo" and r["desactualizado"] is True
+    assert [d["dia"] for d in r["dias"]] == ["Último dato", "Día siguiente"]
+    assert r["dias"][0]["fecha"] == r["fecha_base"]  # la fecha real del dato, no la de hoy

@@ -107,7 +107,8 @@ def alertas(conn, cfg: Settings, pronostico: dict | None = None, momento: dateti
                            "Revisar corriente y WiFi.",
             })
 
-    if pronostico:
+    # Con un pronóstico desactualizado no se avisa a las familias: no habla de mañana
+    if pronostico and not pronostico.get("desactualizado"):
         manana = next((d for d in pronostico.get("dias", []) if d.get("dia") == "Mañana"), None)
         if manana and manana.get("semaforo") in ("amarillo", "rojo"):
             familias = sum(s["alumnos_asma"] for s in db.listar_salones(conn))

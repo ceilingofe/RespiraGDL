@@ -132,14 +132,30 @@ def cargar_bundle(path: Path):
     return joblib.load(path)
 
 
+def _sensor_fuera_hoy(conn, hoy) -> float | None:
+    """Promedio de PM2.5 del sensor de afuera en el horario escolar de hoy, o None si no hay."""
+    inicio = hoy.replace(hour=min(HORAS_ESCUELA), minute=0, second=0)
+    fin = hoy.replace(hour=max(HORAS_ESCUELA), minute=59, second=59)
+    fila = conn.execute(
+        "SELECT AVG(pm25) AS p FROM lecturas WHERE ubicacion='fuera' AND ts BETWEEN ? AND ?",
+        (inicio.isoformat(), fin.isoformat()),
+    ).fetchone()
+    return None if fila["p"] is None else float(fila["p"])
+
+
 def pronostico_actual(conn, cfg) -> dict | None:
     """Lo que usa la API. Orden de respaldo (plan B del roadmap):
-    1. modelo entrenado + serie del SIMAJ
-    2. persistencia con la serie del SIMAJ
-    3. persistencia con el promedio de hoy del sensor de afuera
-    4. None (no hay con qué pronosticar)
+    1. modelo entrenado + serie del SIMAJ al día
+    2. persistencia con la serie del SIMAJ al día
+    3. serie desactualizada pero con sensor de afuera hoy: persistencia con el sensor
+       (las métricas del modelo evaluado van en "modelo_evaluado")
+    4. serie desactualizada sin sensor: se responde con el último dato, marcado como tal
+    5. None (no hay con qué pronosticar)
     """
     from app import db
+
+    hoy = db.ahora()
+    pm_sensor = _sensor_fuera_hoy(conn, hoy)
 
     if Path(cfg.serie_simaj).exists():
         try:
@@ -149,23 +165,28 @@ def pronostico_actual(conn, cfg) -> dict | None:
                 bundle = None  # el modelo se entrenó con otra estación
             r = predecir_desde_serie(serie, bundle)
             r["estacion"] = cfg.estacion_referencia
-            # Si la serie no se ha actualizado, "Hoy" es en realidad el último día con datos
-            r["desactualizado"] = (db.ahora().date() - date.fromisoformat(r["fecha_base"])).days > 1
+            desactualizado = (hoy.date() - date.fromisoformat(r["fecha_base"])).days > 1
+            if desactualizado and pm_sensor is not None:
+                # La serie quedó atrás pero el sensor de afuera sí midió hoy: manda el sensor
+                s = armar_respuesta(hoy.date(), pm_sensor, pm_sensor, "sensor")
+                s["desactualizado"] = False
+                s["aviso"] = (f"Serie del SIMAJ desactualizada (último dato {r['fecha_base']}); "
+                              "se usa persistencia con el sensor de afuera.")
+                s["modelo_evaluado"] = bundle.get("metricas") if bundle else None
+                return s
+            if desactualizado:
+                # "Hoy" sería engañoso: es el último día con datos de la serie
+                r["dias"][0]["dia"] = "Último dato"
+                r["dias"][1]["dia"] = "Día siguiente"
+            r["desactualizado"] = desactualizado
             return r
         except Exception as exc:  # serie corrupta o incompleta: se cae al sensor
             error = str(exc)
     else:
         error = f"no existe {cfg.serie_simaj}"
 
-    hoy = db.ahora()
-    inicio = hoy.replace(hour=min(HORAS_ESCUELA), minute=0, second=0)
-    fin = hoy.replace(hour=max(HORAS_ESCUELA), minute=59, second=59)
-    fila = conn.execute(
-        "SELECT AVG(pm25) AS p FROM lecturas WHERE ubicacion='fuera' AND ts BETWEEN ? AND ?",
-        (inicio.isoformat(), fin.isoformat()),
-    ).fetchone()
-    if fila["p"] is None:
+    if pm_sensor is None:
         return None
-    r = armar_respuesta(hoy.date(), float(fila["p"]), float(fila["p"]), "sensor")
+    r = armar_respuesta(hoy.date(), pm_sensor, pm_sensor, "sensor")
     r["aviso"] = f"Sin serie del SIMAJ ({error}); se usa persistencia con el sensor de afuera."
     return r

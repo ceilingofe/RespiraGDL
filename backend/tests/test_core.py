@@ -116,6 +116,17 @@ def test_alertas():
     assert baja["salon_id"] == "5A"
 
 
+def test_alertas_sin_aviso_a_familias_si_pronostico_desactualizado():
+    pron = {"desactualizado": True, "dias": [
+        {"dia": "Último dato", "pm": 62, "semaforo": "amarillo"},
+        {"dia": "Día siguiente", "pm": 85, "semaforo": "rojo", "nombre": "Muy mala", "consejo": "Recreo adentro."},
+    ]}
+    with db.conexion() as conn:
+        _cargar(conn)
+        a = estado.alertas(conn, get_settings(), pron, momento=AHORA)
+    assert "pronostico" not in [x["tipo"] for x in a]
+
+
 def test_serie_dia():
     with db.conexion() as conn:
         _cargar(conn)
