@@ -1,0 +1,86 @@
+/* Aula Limpia · solo variables de tokens.css (ver docs/diseno/README.md). */
+
+.rg-aula__head { display: flex; justify-content: space-between; align-items: flex-end; gap: var(--rg-space-4); flex-wrap: wrap; }
+.rg-aula__head h1 { font-size: var(--rg-fs-h2); }
+
+.rg-aula-live { display: inline-flex; align-items: center; gap: 6px; color: var(--rg-leaf); font-weight: 600; }
+.rg-aula-live i { width: 8px; height: 8px; border-radius: 50%; background: currentColor; animation: rg-aula-pulse 1.6s var(--rg-ease) infinite; }
+@keyframes rg-aula-pulse { 50% { opacity: 0.3; } }
+
+/* Selector de salón: fila de píldoras pastel, la activa oscura */
+.rg-aula-salones { display: flex; flex-wrap: wrap; gap: var(--rg-space-2); }
+.rg-aula-salon {
+  min-height: 44px; min-width: 64px; padding: 0 var(--rg-space-4); border: 0; border-radius: var(--rg-r-pill);
+  background: var(--rg-aqua); color: var(--rg-ink); font: 600 var(--rg-fs-small) / 1 var(--rg-font); cursor: pointer;
+  transition: background var(--rg-dur-fast) var(--rg-ease), color var(--rg-dur-fast) var(--rg-ease);
+}
+.rg-aula-salon:hover { background: var(--rg-pill-green); }
+.rg-aula-salon.is-on { background: var(--rg-ink); color: var(--rg-white); }
+
+/* Fuera · protección · dentro */
+.rg-aula-hero { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--rg-space-4); }
+.rg-aula-read, .rg-aula-prot { border-radius: var(--rg-r-xl); padding: var(--rg-space-5); display: flex; flex-direction: column; gap: var(--rg-space-2); align-items: flex-start; transition: background var(--rg-dur) var(--rg-ease); }
+.rg-aula-read small { color: var(--rg-muted); font-size: 0.75rem; font-weight: 500; }
+.rg-aula-read strong { font-size: 3.5rem; font-weight: 600; line-height: 1; color: var(--rg-ink); letter-spacing: var(--rg-tracking-tight); }
+.rg-aula-read strong span { font-size: 1rem; font-weight: 500; color: var(--rg-muted); letter-spacing: 0; }
+.rg-aula-prot { align-items: center; justify-content: center; text-align: center; }
+.rg-aula-formula { font-size: var(--rg-fs-small); color: var(--rg-ink); font-weight: 500; }
+
+.rg-aula-ring { width: 168px; height: 168px; }
+.rg-aula-ring__track { fill: none; stroke: var(--rg-white); stroke-width: 12; }
+.rg-aula-ring__val { fill: none; stroke: var(--rg-aq-good); stroke-width: 12; stroke-linecap: round; transition: stroke-dasharray var(--rg-dur-slow) var(--rg-ease); }
+.rg-aula-ring__val.is-low { stroke: var(--rg-aq-bad); }
+.rg-aula-ring__num { font: 600 30px var(--rg-font); fill: var(--rg-ink); letter-spacing: -0.5px; }
+.rg-aula-ring__lbl { font: 500 11px var(--rg-font); fill: var(--rg-muted); }
+
+/* Semáforo (palabra + número, nunca color solo) */
+.rg-aula-aq { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: var(--rg-r-pill); font-size: 0.75rem; font-weight: 600; white-space: nowrap; background: var(--rg-white); }
+.rg-aula-aq i { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.rg-aula-aq--big { font-size: 1rem; padding: 10px 20px; }
+.rg-aula-aq--good { color: var(--rg-aq-good); } .rg-aula-aq--ok { color: var(--rg-aq-ok); }
+.rg-aula-aq--bad { color: var(--rg-aq-bad); } .rg-aula-aq--vbad { color: var(--rg-aq-vbad); } .rg-aula-aq--ext { color: var(--rg-aq-ext); }
+.rg-aula-bg--good { background: var(--rg-aq-good-bg); } .rg-aula-bg--ok { background: var(--rg-aq-ok-bg); }
+.rg-aula-bg--bad { background: var(--rg-aq-bad-bg); } .rg-aula-bg--vbad { background: var(--rg-aq-vbad-bg); } .rg-aula-bg--ext { background: var(--rg-aq-ext-bg); }
+
+.rg-aula-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: var(--rg-space-4); }
+
+/* Recomendaciones */
+.rg-aula-recs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--rg-space-2); }
+.rg-aula-recs li { display: flex; gap: var(--rg-space-3); align-items: flex-start; background: var(--rg-white); border-radius: var(--rg-r-md); padding: 12px 14px; }
+.rg-aula-recs li div { display: flex; flex-direction: column; gap: 2px; }
+.rg-aula-recs strong { font-size: 0.9375rem; font-weight: 600; color: var(--rg-ink); line-height: 1.35; }
+.rg-aula-recs small { font-size: 0.75rem; color: var(--rg-muted); }
+.rg-aula-recs__tag { flex: none; min-width: 52px; text-align: center; padding: 4px 10px; border-radius: var(--rg-r-pill); font-size: 0.6875rem; font-weight: 700; }
+.rg-aula-recs .is-alta .rg-aula-recs__tag { background: var(--rg-aq-bad-bg); color: var(--rg-aq-bad); }
+.rg-aula-recs .is-media .rg-aula-recs__tag { background: var(--rg-aq-ok-bg); color: var(--rg-aq-ok); }
+.rg-aula-recs .is-ok .rg-aula-recs__tag { background: var(--rg-aq-good-bg); color: var(--rg-aq-good); }
+
+/* Gráfica */
+.rg-aula-legend { display: flex; gap: var(--rg-space-4); font-size: var(--rg-fs-small); }
+.rg-aula-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.rg-aula-legend i { width: 18px; height: 4px; border-radius: 2px; }
+.rg-aula-legend .is-fuera { background: var(--rg-aq-bad); } .rg-aula-legend .is-dentro { background: var(--rg-teal); }
+.rg-aula-chart { width: 100%; height: auto; }
+.rg-aula-chart__tick { fill: var(--rg-muted); font-size: 11px; font-family: var(--rg-font); }
+.rg-aula-chart__norma { stroke: var(--rg-muted); stroke-dasharray: 5 6; stroke-width: 1.5; }
+.rg-aula-chart__fuera, .rg-aula-chart__dentro { fill: none; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+.rg-aula-chart__fuera { stroke: var(--rg-aq-bad); } .rg-aula-chart__dentro { stroke: var(--rg-teal); }
+
+/* Estado del filtro */
+.rg-aula-filtro { display: flex; justify-content: space-between; align-items: center; gap: var(--rg-space-3); flex-wrap: wrap; background: var(--rg-white); border-radius: var(--rg-r-md); padding: var(--rg-space-3) var(--rg-space-4); }
+.rg-aula-filtro > div { display: flex; flex-direction: column; gap: 2px; }
+.rg-aula-filtro small { color: var(--rg-muted); font-size: 0.75rem; }
+.rg-aula-filtro strong { color: var(--rg-ink); font-size: 1.125rem; font-weight: 600; }
+
+@media (max-width: 960px) {
+  .rg-aula-hero { grid-template-columns: 1fr 1fr; }
+  .rg-aula-prot { grid-column: 1 / -1; grid-row: 1; flex-direction: row; gap: var(--rg-space-4); }
+  .rg-aula-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .rg-aula-hero { grid-template-columns: 1fr; }
+  .rg-aula-prot { flex-direction: column; }
+  .rg-aula-read { padding: var(--rg-space-4); }
+  .rg-aula-read strong { font-size: 2.75rem; }
+  .rg-aula-filtro .rg-pill { width: 100%; }
+}
