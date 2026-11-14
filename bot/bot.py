@@ -6,6 +6,7 @@ Comandos:
   /simular [color]  simula el envío del aviso a TODAS las familias registradas, como el botón
                     "Enviar aviso a familias" del tablero. color = verde | amarillo | rojo (por defecto
                     el del pronóstico)
+  /hora [HH:MM]     muestra o cambia la hora del aviso automático diario (hora de Guadalajara)
   "1"               la familia avisa que su hijo/a tuvo síntomas; solo se cuenta, no se guarda nada personal
 
 Correr:  python bot.py   (lee TELEGRAM_TOKEN de bot/.env)
@@ -13,6 +14,8 @@ Correr:  python bot.py   (lee TELEGRAM_TOKEN de bot/.env)
 
 import logging
 import os
+import re
+from datetime import time, timedelta, timezone
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -142,6 +145,71 @@ async def responder(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         )
 
 
+# ---------------------------------------------------------------------
+# Aviso automático diario
+# ---------------------------------------------------------------------
+# Guadalajara está en UTC-6 todo el año (México quitó el horario de verano en 2022).
+ZONA_GDL = timezone(timedelta(hours=-6), "Guadalajara")
+NOMBRE_TRABAJO = "aviso-diario"
+# TODO: CONECTAR A LA API - REEMPLAZAR MOCK DATA AQUÍ
+# Hoy la hora vive en memoria (arranca con HORA_AVISO de bot/.env).
+# Con backend: leerla de GET {API_URL}/alertas/programacion, la misma que guarda el tablero.
+HORA_AVISO = os.getenv("HORA_AVISO", "07:00")
+
+
+def leer_hora(texto: str) -> time | None:
+    """Convierte "7:30" o "07:30" en un time de Guadalajara; None si no es válido."""
+    m = re.fullmatch(r"([01]?\d|2[0-3]):([0-5]\d)", texto.strip())
+    if not m:
+        return None
+    return time(int(m.group(1)), int(m.group(2)), tzinfo=ZONA_GDL)
+
+
+async def enviar_aviso_diario(context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Lo llama el JobQueue a la hora programada: manda el aviso a todas las familias registradas."""
+    texto = mensaje_aviso(obtener_pronostico())
+    enviados = 0
+    for chat_id in list(CHATS):
+        try:
+            await context.bot.send_message(chat_id=chat_id, text=texto)
+            enviados += 1
+        except TelegramError as e:
+            log.warning("No se pudo enviar a un chat: %s", e)
+    log.info("Aviso diario enviado a %s chats", enviados)
+
+
+def programar_aviso(job_queue, hora: time) -> None:
+    """Quita la programación anterior y deja una sola a la hora indicada."""
+    for job in job_queue.get_jobs_by_name(NOMBRE_TRABAJO):
+        job.schedule_removal()
+    job_queue.run_daily(enviar_aviso_diario, time=hora, name=NOMBRE_TRABAJO)
+
+
+async def hora(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    global HORA_AVISO
+    if context.job_queue is None:
+        await update.message.reply_text(
+            "El aviso automático no está activo: falta instalar APScheduler (pip install -r requirements.txt)."
+        )
+        return
+    if not context.args:
+        await update.message.reply_text(
+            f"El aviso automático se envía todos los días a las {HORA_AVISO} (hora de Guadalajara).\n"
+            "Para cambiarla escriba, por ejemplo: /hora 06:30"
+        )
+        return
+    nueva = leer_hora(context.args[0])
+    if nueva is None:
+        await update.message.reply_text("Hora no válida. Use el formato HH:MM, por ejemplo: /hora 06:30")
+        return
+    programar_aviso(context.job_queue, nueva)
+    HORA_AVISO = nueva.strftime("%H:%M")
+    # TODO: CONECTAR A LA API - REEMPLAZAR MOCK DATA AQUÍ
+    # requests.put(f"{API_URL}/alertas/programacion", json={"hora": HORA_AVISO}, timeout=5)
+    log.info("Aviso diario reprogramado a las %s", HORA_AVISO)
+    await update.message.reply_text(f"Listo. El aviso automático se enviará todos los días a las {HORA_AVISO}.")
+
+
 def main() -> None:
     if not TOKEN:
         raise SystemExit("Falta TELEGRAM_TOKEN. Copie bot/.env.example a bot/.env y ponga el token de @BotFather.")
@@ -149,7 +217,16 @@ def main() -> None:
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("manana", manana))
     app.add_handler(CommandHandler("simular", simular))
+    app.add_handler(CommandHandler("hora", hora))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, responder))
+    if app.job_queue is None:
+        log.warning("Sin APScheduler: no habrá aviso automático. Corra pip install -r requirements.txt")
+    else:
+        inicial = leer_hora(HORA_AVISO)
+        if inicial is None:
+            raise SystemExit(f"HORA_AVISO no válida en bot/.env: {HORA_AVISO!r}. Use HH:MM, por ejemplo 07:00.")
+        programar_aviso(app.job_queue, inicial)
+        log.info("Aviso automático programado todos los días a las %s (Guadalajara)", HORA_AVISO)
     log.info("Bot corriendo. Ctrl+C para detener.")
     app.run_polling()
 
