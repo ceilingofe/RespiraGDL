@@ -7,8 +7,8 @@ En vivo: https://ceilingofe.github.io/respiragdl/ (se publica solo en cada push 
 | Ruta | Qué es |
 | --- | --- |
 | `#/` | Landing con el hero rotativo de los 3 pilares |
-| `#/tablero` | Tablero de la escuela: salones fuera/dentro, % de protección, pronóstico y aviso a familias |
-| `#/maestro` | Vista de celular del maestro: semáforo, plan de asma y guía de crisis |
+| `#/tablero` | Tablero del director: semáforo, alertas por salón, gráfica fuera/dentro (Recharts), tabla de salones y pronóstico |
+| `#/maestro` | Vista de celular de la maestra: semáforo, alumnos con asma, checklist del día y botón de crisis |
 
 ## Correrlo
 
@@ -21,7 +21,7 @@ npm run build    # genera dist/
 
 ## Datos
 
-Todo sale de `src/data/demo.js` y **es simulado**. Para conectar la API reemplacen esas constantes por llamadas a `GET /lecturas`, `GET /salones/{id}/proteccion` y `GET /alertas/hoy`.
+Todo sale de `src/data/demo.js` y **es simulado**. Busquen `TODO: CONECTAR A LA API`: cada `useState` arranca con un `MOCK_*` y cada página trae un `useEffect` con el `fetch` comentado (`/salones`, `/lecturas`, `/pronostico/manana`, `/salones/3B/hoy`). Para conectar: descomenten el fetch, borren el bloque `MOCK_*` y pongan la URL en `frontend/.env.local` como `VITE_API_URL=...`.
 
 ## Diseño
 
