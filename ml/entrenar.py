@@ -172,7 +172,7 @@ def grafica(y, pred_m, pred_b, ruta: Path, estacion: str) -> None:
     ax.plot(y.index, y, color="#1f2937", lw=1.4, label="Real")
     ax.plot(pred_m.index, pred_m, color="#2563eb", lw=1.2, label="Modelo")
     ax.plot(pred_b.index, pred_b, color="#9ca3af", lw=1, ls="--", label="Persistencia")
-    for lim in (33, 79):
+    for lim in (25, 79):  # cortes verde/amarillo y amarillo/rojo vigentes (NOM-172, columna 2026)
         ax.axhline(lim, color="#d1d5db", lw=0.8)
     ax.set_ylabel("PM2.5 7:00–14:00 (µg/m³)")
     ax.set_title(f"Pronóstico a 24 h · estación {estacion} · periodo de prueba", loc="left", fontsize=10)
