@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import alertas, lecturas, pronostico, salones
+from app.api import alertas, escuela, lecturas, pronostico, salones, suscripciones
 from app.db import init_db
 
 
@@ -28,6 +28,8 @@ app.include_router(lecturas.router)
 app.include_router(salones.router)
 app.include_router(alertas.router)
 app.include_router(pronostico.router)
+app.include_router(escuela.router)
+app.include_router(suscripciones.router)
 
 
 @app.get("/salud", tags=["salud"])

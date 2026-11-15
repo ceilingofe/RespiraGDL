@@ -17,6 +17,7 @@ import random
 from datetime import timedelta
 
 from app import db
+from app.core.escuela import ESCUELAS_DEMO, upsert_escuela
 
 ESCUELA = "miravalle"
 # id, grupo, alumnos con asma (solo el número), tiene filtro
@@ -36,6 +37,8 @@ def pm_fuera(hora_decimal: float) -> float:
 
 
 def cargar_salones(conn) -> None:
+    d = ESCUELAS_DEMO[ESCUELA]
+    upsert_escuela(conn, ESCUELA, d["nombre"], d["nombre_corto"], d["estacion"])
     for sid, grupo, asma, filtro in SALONES:
         db.upsert_salon(conn, sid, ESCUELA, asma, filtro, grupo)
 
