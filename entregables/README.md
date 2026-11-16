@@ -10,7 +10,15 @@
 - Contenido de ocho diapositivas: [`contenido-pitch.md`](contenido-pitch.md).
 - Declaración de IA: [`docs/uso-ia.md`](../docs/uso-ia.md).
 
-Estos archivos son fuentes editables. No equivalen a PDFs maquetados, infografía terminada, presentación exportada o video grabado. Las casillas de entrega externa permanecen pendientes hasta que exista cada archivo, su enlace y una prueba de acceso. No se inventan URLs.
+Las fuentes editables se acompañan ahora de cinco PDFs revisados visualmente:
+
+- [Reporte científico](pdf/reporte-cientifico-respira-gdl.pdf).
+- [Manual de usuario](pdf/manual-usuario-respira-gdl.pdf).
+- [Guía de cableado](pdf/guia-cableado-respira-gdl.pdf).
+- [Pitch de ocho diapositivas](pdf/pitch-respira-gdl.pdf).
+- [Infografía de una página](pdf/infografia-respira-gdl.pdf).
+
+Generador y créditos de activos: [`pdf/README.md`](pdf/README.md). La reevaluación del modelo y su trazabilidad están incluidas en esta versión. Las casillas de publicación externa siguen pendientes hasta subir los materiales y comprobar sus permisos. El video no está grabado; no se inventan URLs.
 
 ## Publicación y formatos finales pendientes
 
