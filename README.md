@@ -8,7 +8,7 @@ Respira GDL es un prototipo de prevención escolar para consultar calidad del ai
 - **Plan de asma escolar:** alertas al maestro, semáforo en el salón y guía paso a paso ante una crisis.
 - **Pronóstico:** modelo de PM2.5 a 24 h con datos del SIMAJ/SINAICA y clima.
 
-> No es una herramienta de diagnóstico. Orienta, recuerda y alerta. Solo usa datos agregados o anónimos.
+> No es una herramienta de diagnóstico. Orienta, recuerda y alerta. Esta demo no debe capturar datos reales de menores. El bot necesita identificadores de Telegram para entregar avisos: no son datos anónimos.
 
 ## Qué está simulado · plan B
 
@@ -37,6 +37,8 @@ La guía de diseño del proyecto está en [`docs/diseno/README.md`](docs/diseno/
 | `entregables/` | Pitch, infografía, guion y enlace del video | Damaris + todos |
 
 ## Cómo correrlo
+
+Para el jurado: abre **Escuela 3D** (`#/simulador`) desde Inicio. Es una simulación pública de seis salones con comparación de escenarios e inventario limitado, sin API ni credenciales. Luego abre **Evidencia** (`#/evidencia`) para distinguir el modelo educativo de las fuentes oficiales y resultados retrospectivos. El [recorrido del jurado](docs/demo-jurado.md) explica qué demostrar y qué no afirmar.
 
 ```bash
 # backend

@@ -54,7 +54,7 @@ function Hero() {
           <span>{tema.t2}</span>
         </h1>
         <p>{tema.p}</p>
-        <a className="rg-pill rg-hero__cta" href="#/#como">Cómo funciona</a>
+        <a className="rg-pill rg-hero__cta" href="#/simulador">Explorar la escuela 3D ↗</a>
       </div>
       <div className="rg-pillars" role="tablist" aria-label="Pilares del proyecto">
         {TEMAS.map((t, k) => (

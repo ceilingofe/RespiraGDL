@@ -13,6 +13,7 @@ export default function NotaDatos({ origen, extra }) {
       ? "Datos de la API con lecturas simuladas (sin sensores físicos)."
       : "Datos recibidos de la API. Revisa su fecha y origen; la conexión no confirma una medición en vivo.";
   }
+  if (origen.desactualizado) texto += ` Hay datos históricos o vencidos${origen.fecha ? ` (fecha de referencia: ${origen.fecha})` : ""}; no representan una medición actual.`;
   return (
     <div className="rg-demo-note" role="status">
       {texto}{extra ? ` ${extra}` : ""}

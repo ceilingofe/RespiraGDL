@@ -1,5 +1,15 @@
 # Frontend Respira GDL
 
+## Escuela 3D y evidencia
+
+Las rutas públicas `#/simulador` y `#/evidencia` permiten presentar el proyecto sin cuenta ni API. El campus isométrico muestra seis salones ficticios con personas ilustrativas, filtros, ESP32/OLED y semáforo. Puedes seleccionar aula, acercar, pausar, avanzar y reiniciar, cambiar exterior/ventanas/ocupación, ensayar desconexión y repartir un inventario limitado de filtros.
+
+El motor `src/data/simulacion.js` resuelve un modelo educativo de mezcla perfecta e integra concentración × tiempo × ocupación. Los supuestos se muestran en la página y no están calibrados. No se alimenta con MQ-135 ni envía lecturas a la API. El reparto compara la próxima hora bajo los mismos supuestos, sin datos de diagnósticos. Las métricas de salud o eficacia clínica no se derivan de ese porcentaje.
+
+Verificación: `npm test` ejecuta pruebas del motor con Node y `npm run build` comprueba la producción. Las vistas se cargan por separado para reducir el JavaScript inicial. El campus respeta movimiento reducido y ofrece selección alternativa y acercamiento para celular.
+
+En esta versión la nota de API dice «Datos recibidos de la API» y advierte si hay un pronóstico histórico. No se infiere una medición en vivo solo porque una petición respondió. Las notas y rutas descritas más abajo corresponden al flujo base; estas aclaraciones prevalecen.
+
 Landing, tablero de la escuela, Aula Limpia y vista del maestro. React 18 + Vite; la única otra dependencia es Recharts (gráfica del tablero).
 
 En vivo: https://ceilingofe.github.io/respiragdl/ (se publica solo en cada push a `main` que toque `frontend/`).

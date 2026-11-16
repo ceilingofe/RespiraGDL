@@ -241,7 +241,7 @@ def mensaje_aviso(p: dict, mensaje_escuela: str | None = None) -> str:
         f"PM2.5 esperado en {ZONA}: {p['pm25']} µg/m³ (calidad del aire {p['nivel'].lower()})\n\n"
         f"{CONSEJO.get(color, '')}\n\n"
         f"{escuela}"
-        "Responda 1 si su hijo o hija tuvo síntomas hoy (anónimo).\n"
+        "Demo: responda 1 para ensayar un conteo por grupo. Telegram identifica su cuenta; no ingrese datos reales de salud.\n"
         "Esto no es un diagnóstico; ante cualquier duda consulte a su médico."
     )
     if p.get("simulado"):

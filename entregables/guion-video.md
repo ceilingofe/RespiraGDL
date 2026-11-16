@@ -16,6 +16,8 @@ La grabación se hace con el prototipo real que esté disponible. El semáforo f
 
 ## 1:05–1:50 · Tres acciones de la demo
 
+**Recorrido alternativo recomendado:** antes del tablero, abrir Escuela 3D, avanzar el ensayo, ajustar inventario y ensayar el reparto. Desconectar el dispositivo virtual para mostrar SIN DATOS. Explicar que todo el campus es un modelo educativo ficticio y que su porcentaje no es una reducción física medida. El recorrido detallado está en `docs/demo-jurado.md`.
+
 **Mostrar:** entrar como director, seleccionar 3A, después vista de maestra. Si falla una ruta de API, conservar visible el aviso de respaldo.
 
 **Decir:** «Primero consulto el tablero y su origen. Después reviso las acciones del grupo. Finalmente preparo el aviso a familias. Aquí las lecturas y alumnos son simulados. Una marca guardada o un botón de envío no comprueba que una familia recibió un mensaje: eso se valida por separado. La guía orienta y siempre prevalece el plan médico individual».

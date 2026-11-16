@@ -40,6 +40,8 @@ En esta revisión se corrigió la limpieza para conservar completos los huecos m
 
 ## Prototipo y hardware real disponible
 
+El laboratorio `#/simulador` presenta seis aulas isométricas con personas ilustrativas, filtro y dispositivo. Permite variar exterior, ventilación y ocupación, comparar con un escenario sin filtros y ensayar un reparto de inventario limitado. Es un modelo educativo de mezcla perfecta con volumen, recambio y CADR supuestos, separado del pronóstico entrenado con SIMAJ. Integra concentración × tiempo × ocupación; ese porcentaje no es riesgo clínico. No se calibra con el MQ ni escribe lecturas en la API. Su método y límites aparecen en la propia interfaz.
+
 React ofrece tablero, plan escolar y acceso simulado por rol. FastAPI/SQLite recibe lecturas y entrega alertas. En Pages solo corre el frontend; sin API se muestran datos simulados. Algunas vistas dependen de rutas de integración que deben verificarse contra el backend instalado.
 
 El montaje disponible utiliza ESP32 DevKit V1, MQ-135, tres LEDs y OLED HW-239. El MQ se conecta al GPIO34 mediante un divisor de tres resistencias de 1 kΩ. Se muestra como milivoltios, nunca como PM2.5, CO₂ o categoría médica. Los LEDs y OLED muestran el semáforo escolar de la API; las simulaciones parpadean y la falta de información hace parpadear los tres LEDs. El firmware ofrece pruebas manuales explícitamente simuladas.

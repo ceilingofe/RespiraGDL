@@ -57,7 +57,7 @@ export function Footer() {
         <div>
           <Logo big />
           <p className="rg-footer__note">
-            Respira GDL orienta, recuerda y alerta. No es una herramienta de diagnóstico. Solo usa datos agregados y anónimos.
+            Respira GDL orienta, recuerda y alerta. No es una herramienta de diagnóstico. Esta demo usa escenarios ficticios; no introduzcas datos reales de menores.
           </p>
         </div>
         <div>
