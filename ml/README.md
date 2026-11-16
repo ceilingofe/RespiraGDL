@@ -1,5 +1,25 @@
 # Pronóstico de PM2.5 a 24 h
 
+## Reevaluación del 16 de noviembre de 2026
+
+Modelo y resultados actuales provienen de cinco archivos oficiales SIMAJ 2020–2024, con huecos largos completos y sin interpolar entre días. La serie limpia se incluye en el repositorio. Se conservan URLs, SHA256 y versiones; el artefacto se recargó para reproducir sus 276 predicciones de prueba. Usa Python 3.12 y las versiones fijadas en `requirements-reproducir.txt` (scikit-learn 1.9.1 para compatibilidad del joblib).
+
+```powershell
+python -m pip install -r backend/requirements.txt
+python ml/entrenar.py --datos data/processed/simaj_horario.csv --estacion Miravalle --corte 2024-01-01
+```
+
+Resultado actual: MAE 10.96 frente a 11.56 de persistencia, mejora registrada de 5.2 %. El modelo tiene más falsas alarmas y menor acierto de color. Se reportan ambas cosas. Los cambios respecto de la ejecución anterior incluyen limpieza y entorno; no se atribuyen solo a la limpieza. No hay validación externa ni clínica.
+
+Los pasos SINAICA de abajo son una alternativa de adquisición, no los usados en esta reevaluación. Para recrear los cinco archivos históricos sigue `data/README.md`. La selección temporal explícita de 2024 es la que sustenta estos resultados, no el corte automático del 20 %.
+
+La gráfica entregada se genera desde las predicciones verificadas, usando fuentes y colores del proyecto y las fechas del día objetivo. Para recrearla sin reentrenar:
+
+```powershell
+python -m pip install -r ml/requirements-grafica.txt
+python ml/graficar_resultados.py
+```
+
 Pronostica el **promedio de PM2.5 de mañana de 7:00 a 14:00** en una estación del SIMAJ y lo traduce al semáforo de la escuela.
 
 ## Pasos (desde la raíz del repo)

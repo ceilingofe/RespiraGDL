@@ -14,7 +14,7 @@ Respira GDL es un prototipo de prevención escolar para consultar calidad del ai
 
 La escuela Miravalle y sus alumnos son ficticios. El montaje disponible es **ESP32 DevKit V1 + MQ-135 + tres LEDs + OLED HW-239**: [firmware y cableado](firmware/semaforo-mq135/README.md). El MQ muestra milivoltios, no PM2.5 ni CO₂. Los LEDs representan el semáforo escolar de la API; no una medición de partículas de ese salón.
 
-No contamos con PMS5003, ventilador ni filtros MERV-13 en este montaje. El filtro es un diseño propuesto y los valores dentro/fuera de la demo son simulados. El histórico SIMAJ termina en 2024 y no representa el exterior actual. El modelo guardado mejoró MAE en 9.6 %, con más falsas alarmas que persistencia; eso no demuestra menos crisis de asma.
+No contamos con PMS5003, ventilador ni filtros MERV-13 en este montaje. El filtro es un diseño propuesto y los valores dentro/fuera de la demo son simulados. El histórico SIMAJ termina en 2024 y no representa el exterior actual. El modelo guardado mejoró MAE en 5.2 %, con más falsas alarmas que persistencia; eso no demuestra menos crisis de asma.
 
 GitHub Pages publica solo el frontend; la API corre en una laptop. El acceso por rol es simulado y los planes familiares son locales al navegador: **no introducir datos reales de salud**. Revisa la ruta pública `#/evidencia`, el [reporte](docs/reporte-cientifico.md) y el [manual](docs/manual-usuario.md).
 

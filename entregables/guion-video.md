@@ -34,7 +34,7 @@ No generar humo ni gas. No filmar contraseñas o el monitor durante la configura
 
 **Mostrar:** sección de resultados y el archivo de métricas.
 
-**Decir:** «El artefacto evaluado en 283 días de 2024 registró MAE de 10.42 frente a 11.53 de persistencia. Detectó más jornadas adversas, pero generó más falsas alarmas y acertó ligeramente menos colores. No lo resumimos en una precisión engañosa. Una corrección posterior de limpieza requiere recalcular estos resultados antes de atribuirlos al pipeline actual».
+**Decir:** «La reevaluación en 276 días de 2024 registró MAE de 10.96 frente a 11.56 de persistencia. Detectó algo más de jornadas adversas, pero generó más falsas alarmas y acertó menos colores. Repetimos el pipeline con datos oficiales, sin interpolar entre días, y verificamos el modelo recargado. No lo resumimos en una precisión única ni lo presentamos como validación clínica».
 
 ## 3:15–4:00 · Viabilidad y siguiente paso
 

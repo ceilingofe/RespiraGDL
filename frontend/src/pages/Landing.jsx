@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { ArtAula, ArtAsma, ArtPronostico, Tile } from "../art/Art.jsx";
+import resumenDatos from "../../../data/processed/resumen_datos.json";
+const MIRAVALLE = resumenDatos.find((e) => e.estacion === "Miravalle");
 
 const TEMAS = [
   {
@@ -82,8 +84,8 @@ function Intro() {
       <div className="rg-split-intro__text">
         <h2>Protegemos a los niños donde pasan seis horas al día</h2>
         <p>
-          El resumen SIMAJ de Miravalle registra 571 días observados con promedio de PM2.5 mayor a 25 µg/m³
-          en 2020–2024, con 68.6 % de cobertura horaria. Empezamos con una escuela ficticia para probar el flujo de prevención.
+          El resumen SIMAJ de Miravalle registra {MIRAVALLE.dias_promedio24h_mayor_25} días observados con promedio de PM2.5 mayor a 25 µg/m³
+          en 2020–2024, con {MIRAVALLE.pct_pm25_con_dato} % de cobertura horaria. Empezamos con una escuela ficticia para probar el flujo de prevención.
         </p>
         <a className="rg-pill rg-pill--blue" href="#/tablero">Ver la demo</a>
       </div>
@@ -96,7 +98,7 @@ const PROBLEMAS = [
   ["humo", "PM2.5 en la ciudad"],
   ["asma", "Asma infantil"],
   ["salon", "Salones sin filtrar"],
-  ["norma", "571 días observados · 2020–2024"],
+  ["norma", `${MIRAVALLE.dias_promedio24h_mayor_25} días observados · 2020–2024`],
   ["recreo", "Recreo al aire libre"],
   ["familia", "Familias sin aviso"],
 ];

@@ -8,7 +8,7 @@ La propuesta se centra en una decisión escolar: cómo organizar prevención con
 2. Avanza 30 minutos con los mismos parámetros y compara la curva con el caso sin filtros. Explica que es un cálculo idealizado, no una medición de partículas del MQ.
 3. Cambia el inventario a dos filtros y pulsa **Ensayar reparto de filtros**. El criterio matemático prioriza la reducción de exposición estimada en la próxima hora, ponderada por ocupación. No utiliza diagnósticos ni decide tratamientos. Contrasta reparto y recursos, no «vidas salvadas».
 4. Desactiva **Dispositivo conectado**: aparece SIN DATOS. El modelo puede seguir calculando aunque el dispositivo no tenga información. Eso permite explicar por qué una desconexión no puede dejar un verde viejo.
-5. Abre `#/evidencia`: dataset ambiental SIMAJ y dataset de morbilidad DGE/IIEG, periodos, cobertura y usos distintos. Muestra las métricas preservadas con sus límites, incluida la necesidad de recalcularlas tras corregir el pipeline.
+5. Abre `#/evidencia`: dataset ambiental SIMAJ y dataset de morbilidad DGE/IIEG, periodos, cobertura y usos distintos. Muestra las métricas de la reevaluación del pipeline corregido, su comparación con persistencia y los límites de una sola prueba histórica.
 6. Enseña el montaje físico solo después de comprobarlo. `verde`, `amarillo` y `rojo` por USB son pruebas simuladas; `vivo` consulta la API. El MQ-135 no mide PM2.5 ni CO₂. No provoques humo o gas.
 
 ## Cómo responde a los cinco criterios del Reto 02

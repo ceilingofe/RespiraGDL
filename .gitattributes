@@ -1,0 +1,6 @@
+data/processed/*.csv -text whitespace=cr-at-eol linguist-generated=true
+data/processed/*.json -text whitespace=cr-at-eol
+docs/resumen_datos.csv -text whitespace=cr-at-eol linguist-generated=true
+ml/resultados/*.csv -text whitespace=cr-at-eol linguist-generated=true
+ml/resultados/*.json -text whitespace=cr-at-eol
+ml/resultados/metodo_resultados.md -text whitespace=cr-at-eol

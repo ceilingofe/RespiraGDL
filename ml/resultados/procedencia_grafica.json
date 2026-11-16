@@ -1,0 +1,11 @@
+{
+  "source": "predicciones_prueba.csv",
+  "source_sha256": "76736dcea309a13651c17e846fe7eeca21a5e693e85768cef0d980fa894cea20",
+  "plot": "pred_vs_real.png",
+  "plot_sha256": "974a4af697198a20d31d85ec10d8eb868dec20c821f9d49f51e5c10955495aaa",
+  "matplotlib_version": "3.11.2",
+  "evaluated_days": 276,
+  "model_mae": 10.96,
+  "persistence_mae": 11.56,
+  "x_axis": "Target day (predictor day plus one calendar day)"
+}

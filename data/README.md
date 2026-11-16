@@ -8,6 +8,22 @@ Los datos crudos no se suben al repo (`data/raw/*` está en `.gitignore`). Cada 
 
 ## Base histórica del SIMAJ (la fuente que se usó)
 
+### Reevaluación reproducida el 16 de noviembre de 2026
+
+Se incluyen la serie pública ya limpia (`processed/simaj_horario.csv`), resumen CSV/JSON, predicciones de prueba y huellas de los cinco archivos oficiales (`processed/procedencia_simaj.json`). El modelo se reentrenó sin completar parcialmente huecos largos ni interpolar entre días. Son datos históricos, no lecturas ambientales actuales.
+
+Para repetirlo, instala las versiones de `ml/requirements-reproducir.txt`. Descarga los cinco archivos de la tabla a `raw/simaj/` y comprueba sus SHA256 contra el manifiesto. Desde la raíz ejecuta:
+
+```powershell
+python data/scripts/importar_simaj.py
+python data/scripts/procesar_sinaica.py
+python ml/entrenar.py --estacion Miravalle --corte 2024-01-01
+```
+
+La importación conserva las banderas inválidas como ausentes. El resumen diario mayor a 25 usa los valores disponibles, sin exigir un mínimo diario de cobertura: es exploratorio, no una certificación normativa. El pipeline conserva topes de filtrado de 175 para PM2.5 y 600 para PM10; son decisiones de limpieza que pueden excluir episodios reales y requieren contraste con control de calidad.
+
+### Descarga inicial y archivos oficiales
+
 Descargada el **2026-11-14** de la sección Datos → "Base histórica completa" del portal del
 SIMAJ (aire.jalisco.gob.mx, que hoy vive en airejalisco.digital), SEMADET Jalisco:
 

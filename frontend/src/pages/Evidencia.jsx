@@ -1,12 +1,9 @@
 import metricas from "../../../ml/resultados/metricas.json";
+import resumenDatos from "../../../data/processed/resumen_datos.json";
 
 const FUENTE_SALUD = "https://iieg.gob.mx/ns/wp-content/uploads/2025/03/ficha_enfermedades_poblacion_jalisco_iieg_2023.pdf";
-const ESTACIONES = [
-  { nombre: "Miravalle", cobertura: 68.6, promedio: 25.2, dias: 571 },
-  { nombre: "Las Pintas", cobertura: 66.7, promedio: 39.5, dias: 812 },
-  { nombre: "Santa Fe", cobertura: 42.5, promedio: 27.2, dias: 412 },
-  { nombre: "Centro", cobertura: 70.0, promedio: 20.0, dias: 372 },
-];
+const ESTACIONES = resumenDatos.map((e) => ({ nombre: e.estacion, cobertura: e.pct_pm25_con_dato,
+  promedio: e.pm25_promedio, dias: e.dias_promedio24h_mayor_25 }));
 
 export default function Evidencia() {
   return (
@@ -51,7 +48,7 @@ export default function Evidencia() {
           <li>Color correcto: modelo {metricas.modelo.acierto_semaforo_pct} %; persistencia {metricas.persistencia.acierto_semaforo_pct} %.</li>
         </ul>
         <p>Mejorar el error medio no equivale a acertar más colores. El modelo detectó más jornadas adversas, con más falsas alarmas. Estas métricas vienen del artefacto guardado en el repositorio; no demuestran menos crisis de asma ni validación médica.</p>
-        <p>La limpieza se corrigió después para conservar completos los huecos largos. Estos resultados y el resumen histórico son anteriores a la corrección; requieren reprocesamiento y nueva evaluación antes de atribuirlos al pipeline actual.</p>
+        <p>Reevaluación del 16 de noviembre de 2026: cinco archivos oficiales descargados de nuevo, huecos largos conservados completos e imputación limitada a cada día. Modelo y predicciones verificados tras recargar el artefacto. Las versiones y huellas de los datos se conservan en el repositorio. Es una prueba histórica de una estación, sin validación externa o clínica.</p>
       </section>
       <section className="rg-section" aria-labelledby="alcance-evidencia">
         <h2 id="alcance-evidencia">Qué funciona y qué falta validar</h2>

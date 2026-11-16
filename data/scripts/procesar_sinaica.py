@@ -63,7 +63,10 @@ def limpiar(df: pd.DataFrame) -> pd.DataFrame:
             # Solo aceptamos corridas completas de hasta tres horas, con ambos extremos.
             faltantes = original.isna()
             longitud = faltantes.groupby(original.notna().cumsum()).transform("sum")
-            interpolada = original.interpolate(limit_area="inside")
+            # Nunca usar una lectura del dia objetivo para rellenar variables del dia previo.
+            interpolada = original.groupby(original.index.normalize()).transform(
+                lambda dia: dia.interpolate(limit_area="inside")
+            )
             g[columna] = original.where(~faltantes | (longitud > MAX_HUECO_H), interpolada)
         partes.append(g.reset_index())
     salida = pd.concat(partes, ignore_index=True)
@@ -98,6 +101,9 @@ def main() -> None:
     df.to_csv(args.salida / "simaj_horario.csv", index=False)
     r = resumen(df)
     r.to_csv(args.salida / "resumen_datos.csv", index=False)
+    r.astype({"desde": str, "hasta": str}).to_json(
+        args.salida / "resumen_datos.json", orient="records", force_ascii=False, indent=2
+    )
     print(r.to_string(index=False))
     print(f"\n-> {args.salida / 'simaj_horario.csv'} ({len(df):,} filas)")
 

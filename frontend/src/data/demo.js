@@ -7,7 +7,7 @@
 // =====================================================================
 
 // URL base de la API. Se configura con VITE_API_URL en frontend/.env.local
-export const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+export const API_URL = import.meta.env?.VITE_API_URL || "http://localhost:8000";
 
 export const NORMA_PM25 = 25; // µg/m³ promedio 24 h, NOM-025-SSA1-2021 (etapa vigente en 2026)
 
@@ -107,7 +107,7 @@ export const MOCK_LECTURAS = Object.fromEntries(
 export const MOCK_PRONOSTICO = {
   dia: "Mañana",
   semaforo: "rojo",
-  pm25: 71,
+  pm25: 95,
   recomendacion: "Recreo y educación física adentro",
   familiasAviso: 21,
 };

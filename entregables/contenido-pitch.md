@@ -20,7 +20,7 @@ Software React + FastAPI/SQLite; ESP32 + MQ-135 + tres LEDs + OLED. El MQ no mid
 
 ## 5. Evaluamos contra una alternativa sencilla
 
-Artefacto retrospectivo: 283 días de prueba de 2024, MAE 10.42 frente a 11.53 de persistencia. Mostrar también falsas alarmas y acierto de color. Mejor MAE no equivale a eficacia clínica. Los artefactos son anteriores a la corrección de huecos largos y requieren nueva evaluación.
+Reevaluación retrospectiva con pipeline corregido: 276 días de prueba de 2024, MAE 10.96 frente a 11.56 de persistencia. Mostrar también falsas alarmas y acierto de color. Mejor MAE no equivale a eficacia clínica. Se descargaron los archivos oficiales, se reentrenó y se verificaron las predicciones del modelo recargado; no hay validación externa ni clínica.
 
 ## 6. Tres disciplinas y protección de menores
 

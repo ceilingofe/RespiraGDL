@@ -10,4 +10,4 @@ Modelo: mezcla perfecta, volumen 180 m³, CADR ilustrativo 400 m³/h, recambio c
 
 El modelo y UI nunca escriben a /lecturas. Sin conexión el dispositivo dibujado muestra SIN DATOS; eso no implica aire bueno. Los colores siguen el semáforo escolar existente. Se usan únicamente tokens visuales del proyecto. Movimiento solo al reproducir y con soporte de movimiento reducido. El boceto de Sergio guía la composición de dos filas por tres aulas.
 
-Validación: pruebas de ecuación, integral, límite de presupuesto, no mutación, restauración y estados sin conexión. Build de producción, recorrido navegador desktop/móvil/teclado, firmware PlatformIO y batería backend. Revisión independiente antes del push. Las métricas históricas se preservan con su advertencia de pipeline anterior.
+Validación: pruebas de ecuación, integral, límite de presupuesto, no mutación, restauración y estados sin conexión. Build de producción, recorrido navegador desktop/móvil/teclado, firmware PlatformIO y batería backend. Revisión independiente antes del push. Se repitió la evaluación histórica tras corregir el pipeline, conservando hashes y versiones.

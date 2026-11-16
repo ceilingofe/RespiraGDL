@@ -1,0 +1,81 @@
+{
+  "sources": [
+    {
+      "url": "https://airejalisco.digital/assets/files/historical/BD_2020.xlsx",
+      "path": "BD_2020.xlsx",
+      "bytes": 7192461,
+      "sha256": "d27d488a7406138e8e25e8a8faccd58a3e572cfa466d790d7a1f04521d9d1ce8",
+      "download_started_utc": "2026-11-16T09:38:50.184932+00:00",
+      "completed_utc": "2026-11-16T09:38:53.814511+00:00"
+    },
+    {
+      "url": "https://airejalisco.digital/assets/files/historical/BD_2021.xlsx",
+      "path": "BD_2021.xlsx",
+      "bytes": 7082633,
+      "sha256": "b6526e5a10062f22e58086f994a4a46c07b1a329e22859398643db49abe44daa",
+      "download_started_utc": "2026-11-16T09:38:50.189997+00:00",
+      "completed_utc": "2026-11-16T09:38:58.477027+00:00"
+    },
+    {
+      "url": "https://airejalisco.digital/assets/files/historical/BD_2022.xlsx",
+      "path": "BD_2022.xlsx",
+      "bytes": 6304644,
+      "sha256": "4f61ffec7b7257770d8cf41bdeea8a50fd49c340484de4907e55cb0af06fc7ed",
+      "download_started_utc": "2026-11-16T09:38:50.191902+00:00",
+      "completed_utc": "2026-11-16T09:39:00.463249+00:00"
+    },
+    {
+      "url": "https://airejalisco.digital/assets/files/historical/BD_2023.xlsx",
+      "path": "BD_2023.xlsx",
+      "bytes": 9418290,
+      "sha256": "f2a7f43b6e7c6aac276d58500b7fad2c7936ca8b29213330971ec952daadc5f6",
+      "download_started_utc": "2026-11-16T09:38:53.814511+00:00",
+      "completed_utc": "2026-11-16T09:38:55.583240+00:00"
+    },
+    {
+      "url": "https://airejalisco.digital/assets/files/historical/BD_2024.xlsx",
+      "path": "BD_2024.xlsx",
+      "bytes": 9173689,
+      "sha256": "fe8e30b34cb64cfa3bfdaa52bcafb935c942b8e59de6132916497cf28a738e9c",
+      "download_started_utc": "2026-11-16T09:38:55.583240+00:00",
+      "completed_utc": "2026-11-16T09:38:58.102154+00:00"
+    }
+  ],
+  "versions": {
+    "pandas": "3.0.1",
+    "numpy": "2.3.5",
+    "scikit-learn": "1.9.1",
+    "openpyxl": "3.1.5",
+    "joblib": "1.6.0"
+  },
+  "counts": [
+    {
+      "source": "https://airejalisco.digital/assets/files/historical/BD_2020.xlsx",
+      "raw_rows": 87840,
+      "normalized_rows": 104306
+    },
+    {
+      "source": "https://airejalisco.digital/assets/files/historical/BD_2021.xlsx",
+      "raw_rows": 87600,
+      "normalized_rows": 142141
+    },
+    {
+      "source": "https://airejalisco.digital/assets/files/historical/BD_2022.xlsx",
+      "raw_rows": 87600,
+      "normalized_rows": 118889
+    },
+    {
+      "source": "https://airejalisco.digital/assets/files/historical/BD_2023.xlsx",
+      "raw_rows": 87600,
+      "normalized_rows": 127594
+    },
+    {
+      "source": "https://airejalisco.digital/assets/files/historical/BD_2024.xlsx",
+      "raw_rows": 114192,
+      "normalized_rows": 123308
+    }
+  ],
+  "normalized_rows": 616238,
+  "clean_rows": 175381,
+  "finished_utc": "2026-11-16T09:43:04.200676+00:00"
+}

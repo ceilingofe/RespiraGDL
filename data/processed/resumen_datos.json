@@ -1,0 +1,38 @@
+[
+  {
+    "estacion": "Centro",
+    "desde": "2020-01-01",
+    "hasta": "2024-12-31",
+    "horas": 43848,
+    "pct_pm25_con_dato": 68.3,
+    "pm25_promedio": 19.9,
+    "dias_promedio24h_mayor_25": 369
+  },
+  {
+    "estacion": "Las Pintas",
+    "desde": "2020-01-01",
+    "hasta": "2024-12-31",
+    "horas": 43848,
+    "pct_pm25_con_dato": 64.4,
+    "pm25_promedio": 39.2,
+    "dias_promedio24h_mayor_25": 802
+  },
+  {
+    "estacion": "Miravalle",
+    "desde": "2020-01-01",
+    "hasta": "2024-12-31",
+    "horas": 43848,
+    "pct_pm25_con_dato": 67.2,
+    "pm25_promedio": 25.3,
+    "dias_promedio24h_mayor_25": 566
+  },
+  {
+    "estacion": "Santa Fe",
+    "desde": "2020-01-01",
+    "hasta": "2024-12-31",
+    "horas": 43837,
+    "pct_pm25_con_dato": 41.6,
+    "pm25_promedio": 27.3,
+    "dias_promedio24h_mayor_25": 400
+  }
+]

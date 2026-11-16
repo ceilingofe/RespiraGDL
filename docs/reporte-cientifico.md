@@ -5,11 +5,11 @@ Equipo: Sergio, Juan, Carlos y Damaris. Revisión: 16 de noviembre de 2026.
 
 ## Resumen
 
-Prototipo de software para organizar acciones escolares frente a contaminación en Miravalle, Guadalajara. Integra tablero, vista de maestra, demostración de avisos y pronóstico para la siguiente jornada escolar. Emplea dos conjuntos del catálogo: SIMAJ y Anuario de Morbilidad. El artefacto del modelo reporta 9.6 % de mejora en error absoluto medio frente a persistencia en 283 días de prueba de 2024. El montaje disponible muestra el semáforo en LEDs y OLED, y una señal MQ-135 sin calibrar. No se midió reducción de partículas ni impacto clínico; la escuela y sus usuarios son ficticios.
+Prototipo de software para organizar acciones escolares frente a contaminación en Miravalle, Guadalajara. Integra tablero, vista de maestra, demostración de avisos y pronóstico para la siguiente jornada escolar. Emplea dos conjuntos del catálogo: SIMAJ y Anuario de Morbilidad. El artefacto del modelo reporta 5.2 % de mejora en error absoluto medio frente a persistencia en 276 días de prueba de 2024. El montaje disponible muestra el semáforo en LEDs y OLED, y una señal MQ-135 sin calibrar. No se midió reducción de partículas ni impacto clínico; la escuela y sus usuarios son ficticios.
 
 ## Problema y población delimitada
 
-El resumen SIMAJ registra en Miravalle 571 días observados de 2020–2024 con PM2.5 diario mayor a 25 µg/m³ y cobertura horaria de 68.6 %. Justifica explorar exposición local, sin tratar huecos como días limpios ni certificar cumplimiento normativo. El dataset de morbilidad proporciona contexto estatal de asma, sin inferir causalidad ni prevalencia infantil. Las fuentes y extracciones están en [`datasets.md`](datasets.md).
+El resumen SIMAJ registra en Miravalle 566 días observados de 2020–2024 con PM2.5 diario mayor a 25 µg/m³ y cobertura horaria de 67.2 %. Justifica explorar exposición local, sin tratar huecos como días limpios ni certificar cumplimiento normativo. El dataset de morbilidad proporciona contexto estatal de asma, sin inferir causalidad ni prevalencia infantil. Las fuentes y extracciones están en [`datasets.md`](datasets.md).
 
 Usuarios propuestos: maestras, directivos y familias de primaria en Miravalle. No hay escuela participante, consentimiento recabado o prueba de usuarios documentados. Pregunta del prototipo: ¿podemos convertir evidencia ambiental y pronóstico en un flujo escolar comprensible que identifique simulación, antigüedad y falta de información?
 
@@ -24,19 +24,19 @@ Usuarios propuestos: maestras, directivos y familias de primaria en Miravalle. N
 
 La serie horaria SIMAJ se importa de los archivos oficiales 2020–2024. Los crudos no se distribuyen en el repositorio; sus URLs y scripts están en `data/README.md`. La limpieza, variables y limitaciones se describen en [`metodo-y-datos.md`](metodo-y-datos.md). El dataset de salud se conserva como tres observaciones agregadas con fuente y se utiliza para caracterizar el problema; no se mezcla con el entrenamiento ambiental.
 
-El modelo predice el promedio de PM2.5 de 7:00 a 14:00 del día siguiente en Miravalle. El artefacto preservado usa 938 días de entrenamiento de 2020–2023 y 283 días de prueba de 2024-01-01 a 2024-12-30. Compara gradient boosting con persistencia («mañana = hoy»). Las cifras siguientes vienen de `ml/resultados/metricas.json`; no afirmamos haber repetido el entrenamiento completo durante esta revisión sin los crudos.
+El modelo predice el promedio de PM2.5 de 7:00 a 14:00 del día siguiente en Miravalle. Se repitió la descarga, limpieza y entrenamiento el 16 de noviembre de 2026: 903 días de entrenamiento de 2020-01-05 a 2023-12-31 y 276 días de prueba de 2024-01-01 a 2024-12-30. Compara gradient boosting con persistencia («mañana = hoy»). Las cifras siguientes vienen de `ml/resultados/metricas.json`. Se recargó el modelo guardado y se reprodujeron las 276 predicciones. La procedencia de los archivos, sus huellas y versiones se conserva en el repositorio.
 
 ## Resultados retrospectivos
 
-- MAE: persistencia 11.53 µg/m³; modelo 10.42 µg/m³; mejora registrada 9.6 %.
-- RMSE: persistencia 17.47 µg/m³; modelo 14.89 µg/m³.
-- Días adversos detectados: persistencia 79.1 %; modelo 83.5 %.
-- Falsas alarmas: persistencia 21.4 %; modelo 26.3 %.
-- Color correcto: persistencia 73.1 %; modelo 72.4 %.
+- MAE: persistencia 11.56 µg/m³; modelo 10.96 µg/m³; mejora registrada 5.2 %.
+- RMSE: persistencia 17.36 µg/m³; modelo 15.23 µg/m³.
+- Días adversos detectados: persistencia 78.7 %; modelo 79.4 %.
+- Falsas alarmas: persistencia 21.8 %; modelo 28.1 %.
+- Color correcto: persistencia 72.5 %; modelo 69.2 %.
 
 El modelo mejora el error medio y detecta más jornadas adversas, pero empeora falsas alarmas y acierto de color. No presentamos una «precisión» única ni prometemos evitar crisis. Requiere evaluar datos recientes y costos de error antes de operar en una escuela.
 
-En esta revisión se corrigió la limpieza para conservar completos los huecos mayores de tres horas. Los resúmenes y métricas guardados son anteriores a esa corrección: no deben atribuirse al pipeline corregido sin reprocesar los crudos y reentrenar. No se realizó aquí esa nueva evaluación.
+La limpieza conserva completos los huecos mayores de tres horas y restringe la interpolación al mismo día para no usar el día objetivo al completar variables del día predictor. Las métricas actuales corresponden a ese pipeline corregido. También cambió el entorno respecto del resultado anterior, cuyas versiones no estaban registradas: la diferencia de desempeño no se atribuye exclusivamente a la limpieza. Se fija scikit-learn 1.9.1 y se conserva el entorno en `ml/requirements-reproducir.txt`. Una sola partición histórica no sustituye validación externa ni intervalos de incertidumbre.
 
 ## Prototipo y hardware real disponible
 

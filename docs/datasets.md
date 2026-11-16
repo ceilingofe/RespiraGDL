@@ -6,9 +6,9 @@ SIMAJ / SEMADET Jalisco, histórico horario 2020-01-01 a 2024-12-31, estaciones 
 
 URLs anuales y descarga: [`data/README.md`](../data/README.md). Limpieza: `data/scripts/procesar_sinaica.py`. Resumen preservado: [`resumen_datos.csv`](resumen_datos.csv). Método: [`metodo-y-datos.md`](metodo-y-datos.md).
 
-Miravalle registra 571 días observados con promedio de 24 h >25 µg/m³ en todo 2020–2024, con 68.6 % de cobertura horaria. No se anualiza ese conteo ni se consideran los huecos como aire limpio. La cobertura no certifica suficiencia normativa por día; es un análisis exploratorio. El histórico no es calidad del aire actual.
+Miravalle registra 566 días observados con promedio de 24 h >25 µg/m³ en todo 2020–2024, con 67.2 % de cobertura horaria. No se anualiza ese conteo ni se consideran los huecos como aire limpio. La cobertura no certifica suficiencia normativa por día; es un análisis exploratorio. El histórico no es calidad del aire actual.
 
-Ese resumen es el artefacto preservado antes de corregir la interpolación de huecos largos. Requiere volver a procesar los crudos para representar el pipeline corregido; no se presenta como recalculado en esta revisión.
+Ese resumen se recalculó el 16 de noviembre de 2026 a partir de cinco archivos oficiales, conservando completos los huecos mayores de tres horas y sin interpolar entre días. URLs, huellas SHA256, conteos y versiones están en `data/processed/procedencia_simaj.json`. El resumen JSON que usa la web se genera junto al CSV para mantener cifras coherentes.
 
 ## 11 · Anuario de morbilidad — Jalisco
 

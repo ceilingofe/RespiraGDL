@@ -40,3 +40,12 @@ def test_no_rellena_una_variable_sin_dos_extremos_validos():
     resultado = limpiar(datos)
     assert resultado["pm10"].iloc[0] == 5
     assert resultado["pm10"].iloc[1:].isna().all()
+
+
+def test_no_usa_el_dia_objetivo_para_imputar_el_dia_predictor():
+    fechas = pd.date_range("2024-01-01 22:00", periods=4, freq="h")
+    datos = pd.DataFrame({"estacion": "Miravalle", "fecha": fechas.strftime("%Y-%m-%d"),
+                          "hora": fechas.hour, "parametro": "PM2.5", "valor": [10, None, None, 40]})
+    resultado = limpiar(datos)
+    assert resultado["pm25"].iloc[1:3].isna().all()
+    assert resultado["pm25"].iloc[[0, 3]].tolist() == [10, 40]
