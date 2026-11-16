@@ -72,6 +72,32 @@ Tipos de alerta:
 | `sensor_desconectado` | un nodo real sin datos por más de `MINUTOS_SIN_DATOS` (10 min) |
 | `pronostico` | mañana amarillo o rojo; trae `familias` = alumnos con asma a los que hay que avisar (lo usa el bot) |
 
+## Avisos, bot y pantallas (Carlos)
+
+Rutas con los mismos nombres que ya usan `bot/bot.py` y los `TODO: CONECTAR A LA API` del frontend. Si no mandan `escuela_id`, se usa `ESCUELA_DEFAULT` (`miravalle`).
+
+| Método y ruta | Quién la usa | Cuerpo o respuesta |
+| --- | --- | --- |
+| `POST /alertas/aviso` | tablero, maestra | `{"escuela_id":"miravalle","texto":"…","grupo":"3A"}`; sin `grupo`, va a toda la escuela. Responde el aviso con `id` |
+| `GET /alertas/aviso/pendientes?escuela_id=miravalle` | bot, cada 30 s | `[{"id","escuela_id","grupo","texto","creado"}]` |
+| `POST /alertas/aviso/{id}/enviado` | bot | `{"familias": 12}`. Es idempotente; si el aviso no existe, responde 404 |
+| `GET /alertas/aviso` | tablero | historial de avisos, el más reciente primero, con `enviado` y `familias` |
+| `POST /alertas/enviar` | botón "Enviar aviso" | `{"mensaje":"…"}` opcional; sin mensaje, usa el texto sugerido. Crea un aviso para toda la escuela |
+| `GET /alertas/mensaje-familias` | tablero | `{"texto"}` sugerido según el pronóstico de mañana |
+| `GET` / `PUT /alertas/programacion` | tablero, bot | `{"hora":"07:00","mensaje"}`; la hora va en formato `HH:MM` de 24 h |
+| `POST /suscripciones` | bot | `{"chat_id":123,"grupos":["3A"]}`, **sin nombres ni teléfonos** |
+| `DELETE /suscripciones/{chat_id}` | bot | 404 si no estaba suscrito |
+| `GET /suscripciones?grupo=3A` | bot | chats a los que se manda un aviso |
+| `POST /reportes-sintomas` | bot (respuesta "1") | `{"escuela":"miravalle","grupo":"3A"}`; solo se cuenta, no se guarda quién |
+| `GET /reportes-sintomas/hoy` | tablero | `{"fecha","total","por_grupo"}` |
+| `GET /escuelas/{id}` | encabezado del tablero | forma de `MOCK_ESCUELA`: `nombre, nombreCorto, estacion, semaforoHoy, pm25Hoy, actualizado, momento` |
+| `GET /salones/{id}/hoy` | vista de la maestra | forma de `MOCK_MAESTRA`: `titulo, salonId, semaforo, pm25, momento, conAsma, tareas` + `dentro, proteccion` |
+| `POST /salones/{id}/tareas/{tarea}` | vista de la maestra | alterna `recreo`, `filtro` o `inhalador` (o `?hecho=true/false`); devuelve las tareas |
+| `GET /pronostico/manana` | tarjeta de pronóstico | forma de `MOCK_PRONOSTICO`: `dia, semaforo, pm25, recomendacion, familiasAviso` + `fuente, desactualizado, simulado` |
+| `GET /lecturas?salon=3A&fecha=hoy` | gráfica del tablero | igual que `/lecturas/serie?salon_id=3A`, de 7:00 a 16:00 |
+
+**No mandar el aviso diario** si `/pronostico` o `/pronostico/manana` traen `desactualizado: true` (serie histórica vieja) o `simulado: true` (las lecturas de afuera de hoy son simuladas).
+
 ## Cómo se calcula
 
 - **% de protección** = `1 − dentro / fuera`, con el promedio de los últimos `VENTANA_PROTECCION_MIN` minutos (60) de cada sensor. Se limita a 0–100 %. Si afuera hay menos de 10 µg/m³, no se calcula (`aire_limpio`) porque el % no significaría nada.

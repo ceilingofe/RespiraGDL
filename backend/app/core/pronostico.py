@@ -143,6 +143,17 @@ def _sensor_fuera_hoy(conn, hoy) -> float | None:
     return None if fila["p"] is None else float(fila["p"])
 
 
+def _sensor_simulado_hoy(conn, hoy) -> bool:
+    """True si TODAS las lecturas de afuera de hoy en horario escolar son simuladas (cargar_demo/simular_nodos)."""
+    inicio = hoy.replace(hour=min(HORAS_ESCUELA), minute=0, second=0)
+    fin = hoy.replace(hour=max(HORAS_ESCUELA), minute=59, second=59)
+    fila = conn.execute(
+        "SELECT MIN(simulada) AS m FROM lecturas WHERE ubicacion='fuera' AND ts BETWEEN ? AND ?",
+        (inicio.isoformat(), fin.isoformat()),
+    ).fetchone()
+    return fila["m"] == 1
+
+
 def pronostico_actual(conn, cfg) -> dict | None:
     """Lo que usa la API. Orden de respaldo (plan B del roadmap):
     1. modelo entrenado + serie del SIMAJ al día
@@ -170,6 +181,7 @@ def pronostico_actual(conn, cfg) -> dict | None:
                 # La serie quedó atrás pero el sensor de afuera sí midió hoy: manda el sensor
                 s = armar_respuesta(hoy.date(), pm_sensor, pm_sensor, "sensor")
                 s["desactualizado"] = False
+                s["simulado"] = _sensor_simulado_hoy(conn, hoy)
                 s["aviso"] = (f"Serie del SIMAJ desactualizada (último dato {r['fecha_base']}); "
                               "se usa persistencia con el sensor de afuera.")
                 s["modelo_evaluado"] = bundle.get("metricas") if bundle else None
@@ -188,5 +200,6 @@ def pronostico_actual(conn, cfg) -> dict | None:
     if pm_sensor is None:
         return None
     r = armar_respuesta(hoy.date(), pm_sensor, pm_sensor, "sensor")
+    r["simulado"] = _sensor_simulado_hoy(conn, hoy)
     r["aviso"] = f"Sin serie del SIMAJ ({error}); se usa persistencia con el sensor de afuera."
     return r

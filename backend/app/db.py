@@ -36,6 +36,47 @@ CREATE TABLE IF NOT EXISTS lecturas (
 );
 CREATE INDEX IF NOT EXISTS ix_lect_salon ON lecturas (escuela, salon_id, ubicacion, ts);
 CREATE INDEX IF NOT EXISTS ix_lect_nodo ON lecturas (nodo_id, ts);
+CREATE TABLE IF NOT EXISTS escuelas (
+    id            TEXT PRIMARY KEY,          -- igual que en el nodo_id: miravalle
+    nombre        TEXT NOT NULL,
+    nombre_corto  TEXT,
+    estacion      TEXT                       -- estación del SIMAJ de referencia
+);
+CREATE TABLE IF NOT EXISTS avisos (          -- avisos a familias que reparte el bot
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    escuela_id  TEXT NOT NULL,
+    grupo       TEXT,                        -- NULL = toda la escuela
+    texto       TEXT NOT NULL,
+    origen      TEXT NOT NULL DEFAULT 'tablero',
+    creado      TEXT NOT NULL,
+    enviado     TEXT,                        -- NULL = pendiente
+    familias    INTEGER
+);
+CREATE INDEX IF NOT EXISTS ix_avisos_pend ON avisos (escuela_id, enviado);
+CREATE TABLE IF NOT EXISTS suscripciones (   -- chats de Telegram por grupo; SIN nombres ni teléfonos
+    chat_id     TEXT PRIMARY KEY,
+    escuela_id  TEXT NOT NULL,
+    grupos      TEXT NOT NULL DEFAULT '[]',  -- JSON: ["3A", "5A"]
+    actualizado TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS reportes_sintomas (  -- solo el conteo: no se guarda quién respondió
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    escuela_id  TEXT NOT NULL,
+    grupo       TEXT,
+    fecha       TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS programacion (
+    escuela_id  TEXT PRIMARY KEY,
+    hora        TEXT NOT NULL,               -- HH:MM del aviso diario
+    mensaje     TEXT
+);
+CREATE TABLE IF NOT EXISTS tareas_salon (    -- checklist de la maestra, por día
+    salon_id    TEXT NOT NULL,
+    fecha       TEXT NOT NULL,
+    tarea_id    TEXT NOT NULL,
+    hecho       INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY (salon_id, fecha, tarea_id)
+);
 """
 
 

@@ -40,8 +40,16 @@ def recibir(lectura: Lectura, x_nodo_token: str | None = Header(default=None)):
 
 @router.get("")
 def listar(salon_id: str | None = None, horas: int = Query(default=24, ge=1, le=24 * 31),
-           limite: int = Query(default=500, ge=1, le=5000)):
-    """Lecturas crudas más recientes primero."""
+           limite: int = Query(default=500, ge=1, le=5000),
+           salon: str | None = Query(default=None, description="Atajo del tablero: con salon= devuelve la serie del día"),
+           fecha: str | None = Query(default=None, description="Con salon=: 'hoy' o YYYY-MM-DD")):
+    """Lecturas crudas más recientes primero.
+
+    Atajo para el tablero (Tablero.jsx): GET /lecturas?salon=3A&fecha=hoy devuelve lo mismo que
+    GET /lecturas/serie?salon_id=3A: [{"h": "7:00", "fuera": 41, "dentro": 35}, ...] de 7:00 a 16:00.
+    """
+    if salon:
+        return serie(salon, None if fecha in (None, "", "hoy") else fecha)
     desde = db.ahora() - timedelta(hours=horas)
     with db.conexion() as conn:
         filas = db.lecturas_recientes(conn, salon_id=salon_id, desde=desde, limite=limite)
@@ -50,7 +58,7 @@ def listar(salon_id: str | None = None, horas: int = Query(default=24, ge=1, le=
 
 @router.get("/serie")
 def serie(salon_id: str, fecha: str | None = Query(default=None, description="YYYY-MM-DD; por defecto hoy")):
-    """Promedio por hora de la jornada (7:00–14:00), fuera y dentro. Misma forma que SERIE del frontend."""
+    """Promedio por hora de la jornada (7:00–16:00), fuera y dentro. Misma forma que SERIE del frontend."""
     try:
         dia = datetime.fromisoformat(fecha) if fecha else db.ahora()
     except ValueError as exc:

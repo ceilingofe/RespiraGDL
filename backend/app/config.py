@@ -26,6 +26,8 @@ class Settings:
     modelo_path: Path
     serie_simaj: Path
     estacion_referencia: str
+    escuela_default: str        # escuela de la demo cuando una petición no la dice
+    hora_aviso: str             # hora del aviso diario si la escuela no ha programado otra
 
 
 def _db_path(url: str) -> str:
@@ -47,4 +49,6 @@ def get_settings() -> Settings:
         modelo_path=Path(os.getenv("MODELO_PATH", str(REPO_ROOT / "ml" / "modelos" / "pronostico_pm25.joblib"))),
         serie_simaj=Path(os.getenv("SERIE_SIMAJ", str(REPO_ROOT / "data" / "processed" / "simaj_horario.csv"))),
         estacion_referencia=os.getenv("ESTACION_REFERENCIA", "Miravalle"),
+        escuela_default=os.getenv("ESCUELA_DEFAULT", "miravalle"),
+        hora_aviso=os.getenv("HORA_AVISO", "07:00"),
     )

@@ -21,3 +21,17 @@ def pronostico():
         raise HTTPException(status_code=503, detail="Sin datos para pronosticar: falta la serie del SIMAJ "
                                                     "y no hay lecturas de afuera de hoy.")
     return p
+
+
+@router.get("/manana")
+def manana(escuela_id: str | None = None):
+    """Tarjeta de pronóstico del tablero (forma de MOCK_PRONOSTICO): dia, semaforo, pm25, recomendacion,
+    familiasAviso. Si `desactualizado` es true, no se debe mandar aviso a familias."""
+    from app.core.escuela import pronostico_manana
+
+    cfg = get_settings()
+    with db.conexion() as conn:
+        p = pronostico_manana(conn, cfg, (escuela_id or "").strip().lower() or cfg.escuela_default)
+    if p is None:
+        raise HTTPException(status_code=503, detail="Sin datos para pronosticar todavía.")
+    return p

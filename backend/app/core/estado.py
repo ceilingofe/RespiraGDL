@@ -11,7 +11,7 @@ from app.config import Settings
 from app.core.proteccion import calcular_proteccion
 from app.core.semaforo import nivel
 
-HORA_ENTRADA, HORA_SALIDA = 7, 14  # jornada de primaria matutina
+HORA_ENTRADA, HORA_SALIDA = 7, 16  # serie del tablero: de 7:00 a 16:00 (como el frontend)
 
 
 def _r(x: float | None) -> int | None:
