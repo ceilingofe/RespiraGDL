@@ -1,5 +1,7 @@
 # Método y datos (borrador de Juan para el reporte científico)
 
+> **Alcance actualizado, 16 nov 2026:** las secciones de medición PMS5003/filtro son el diseño futuro, no un experimento realizado. El montaje actual usa ESP32 + MQ-135 + LEDs + OLED; no mide PM2.5. No existe revisión médica documentada. El segundo dataset ya utilizado y sus límites están en `docs/datasets.md`. Las métricas y el resumen de cobertura preservados corresponden a la ejecución anterior. En esta revisión se corrigió la interpolación para no rellenar parcialmente huecos mayores de tres horas: **hace falta volver a procesar los crudos y reentrenar antes de atribuir aquellas cifras al pipeline corregido**.
+
 > Damaris: esta es la sección de método. Los números entre `[ ]` se llenan cuando corran
 > `ml/entrenar.py` con los datos reales; la tabla de resultados sale lista en
 > `ml/resultados/metodo_resultados.md`. Entrega del reporte: domingo 12:00.

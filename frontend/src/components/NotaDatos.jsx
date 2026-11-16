@@ -11,7 +11,7 @@ export default function NotaDatos({ origen, extra }) {
   if (origen.estado === "api") {
     texto = origen.simuladas
       ? "Datos de la API con lecturas simuladas (sin sensores físicos)."
-      : "Datos en vivo de los sensores y la API.";
+      : "Datos recibidos de la API. Revisa su fecha y origen; la conexión no confirma una medición en vivo.";
   }
   return (
     <div className="rg-demo-note" role="status">

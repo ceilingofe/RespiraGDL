@@ -1,0 +1,4 @@
+dataset_catalogo,institucion,anio,territorio,padecimiento,sexo,casos_nuevos,grupo_edad,fuente,pagina
+11,DGE / IIEG,2023,Jalisco,Asma,Total,13613,Todas las edades,https://iieg.gob.mx/ns/wp-content/uploads/2025/03/ficha_enfermedades_poblacion_jalisco_iieg_2023.pdf,3
+11,DGE / IIEG,2023,Jalisco,Asma,Mujeres,8263,Todas las edades,https://iieg.gob.mx/ns/wp-content/uploads/2025/03/ficha_enfermedades_poblacion_jalisco_iieg_2023.pdf,3
+11,DGE / IIEG,2023,Jalisco,Asma,Hombres,5350,Todas las edades,https://iieg.gob.mx/ns/wp-content/uploads/2025/03/ficha_enfermedades_poblacion_jalisco_iieg_2023.pdf,3

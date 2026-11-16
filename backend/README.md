@@ -47,6 +47,8 @@ Si en `.env` ponen `NODO_TOKEN=algo`, el ESP32 debe mandar el header `X-Nodo-Tok
 
 ## Endpoints (Carlos)
 
+El semáforo físico `firmware/semaforo-mq135` consume `GET /alertas/hoy`. Además de los campos existentes, ahora recibe `simulado`, `desactualizado`, `fecha_base` y `ultima_lectura`. En origen sensor, la marca de simulación corresponde a las lecturas exteriores de la misma ventana escolar utilizada para el promedio. Un último dato mayor a `MINUTOS_SIN_DATOS`, futuro o inexistente se considera vencido. En origen histórico se conserva la antigüedad y se exige fecha base de hoy para mostrarlo como actual. Las marcas son de calidad de información: no son validación clínica.
+
 | Método y ruta | Para qué | Respuesta |
 | --- | --- | --- |
 | `POST /lecturas` | lo llama el ESP32 | `{"recibida", "id", "escuela", "salon_id", "ubicacion"}` |

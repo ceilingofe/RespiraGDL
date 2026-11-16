@@ -63,15 +63,14 @@ export function Footer() {
         <div>
           <h4>Proyecto</h4>
           <a href="#/#como">Cómo funciona</a>
-          <a href="#/#escuelas">Escuelas piloto</a>
+          <a href="#/#escuelas">Piloto propuesto</a>
+          <a href="#/evidencia">Evidencia y limitaciones</a>
           <a href="https://github.com/ceilingofe/respiragdl">Código en GitHub</a>
         </div>
         <div>
           <h4>Datos del catálogo</h4>
           <span>39 · Calidad del aire</span>
           <span>11 · Anuario de morbilidad</span>
-          <span>28 · Estadísticas educativas</span>
-          <span>12 · Mortalidad</span>
         </div>
         <div>
           <h4>Hackathon</h4>

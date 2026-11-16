@@ -2,13 +2,21 @@
 
 Proyecto del Hackathon Jalisco Internacional 2026, Reto 02 Salud y Bienestar.
 
-Respira GDL baja el aire contaminado que respiran los niños dentro del salón y avisa a maestros y familias de niños con asma antes de un día de mala calidad del aire. Combina:
+Respira GDL es un prototipo de prevención escolar para consultar calidad del aire, preparar acciones y demostrar avisos a familias. Busca reducir exposición con filtros en una fase futura; **todavía no demuestra reducción física ni beneficios clínicos**. Combina:
 
 - **Aula Limpia:** filtro casero (ventilador + 4 filtros MERV-13) y dos sensores PM2.5 con ESP32, uno dentro y otro fuera del salón.
 - **Plan de asma escolar:** alertas al maestro, semáforo en el salón y guía paso a paso ante una crisis.
 - **Pronóstico:** modelo de PM2.5 a 24 h con datos del SIMAJ/SINAICA y clima.
 
 > No es una herramienta de diagnóstico. Orienta, recuerda y alerta. Solo usa datos agregados o anónimos.
+
+## Qué está simulado · plan B
+
+La escuela Miravalle y sus alumnos son ficticios. El montaje disponible es **ESP32 DevKit V1 + MQ-135 + tres LEDs + OLED HW-239**: [firmware y cableado](firmware/semaforo-mq135/README.md). El MQ muestra milivoltios, no PM2.5 ni CO₂. Los LEDs representan el semáforo escolar de la API; no una medición de partículas de ese salón.
+
+No contamos con PMS5003, ventilador ni filtros MERV-13 en este montaje. El filtro es un diseño propuesto y los valores dentro/fuera de la demo son simulados. El histórico SIMAJ termina en 2024 y no representa el exterior actual. El modelo guardado mejoró MAE en 9.6 %, con más falsas alarmas que persistencia; eso no demuestra menos crisis de asma.
+
+GitHub Pages publica solo el frontend; la API corre en una laptop. El acceso por rol es simulado y los planes familiares son locales al navegador: **no introducir datos reales de salud**. Revisa la ruta pública `#/evidencia`, el [reporte](docs/reporte-cientifico.md) y el [manual](docs/manual-usuario.md).
 
 ## Diseño
 
@@ -51,7 +59,7 @@ cd firmware/nodo-aire && cp include/config.example.h include/config.h && pio run
 
 ## Datasets del catálogo del kit
 
-Ver `docs/datasets.md`: 39 Calidad del aire (SIMAJ/SINAICA), 11 Anuario de morbilidad, 28 Estadísticas educativas, 12 Mortalidad.
+Se utilizan **39 Calidad del aire (SIMAJ)** y **11 Anuario de morbilidad**. El segundo se conserva como extracción agregada en `data/processed/morbilidad_jalisco_2023.csv`. [Fuentes y uso concreto](docs/datasets.md). Educación y mortalidad no se cuentan como utilizados sin una extracción verificable.
 
 ## Uso de inteligencia artificial
 

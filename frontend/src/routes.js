@@ -5,6 +5,7 @@ import Tablero from "./pages/Tablero.jsx";
 import Maestro from "./pages/Maestro.jsx";
 import AulaLimpia from "./pages/AulaLimpia.jsx";
 import NoEncontrada from "./pages/NoEncontrada.jsx";
+import Evidencia from "./pages/Evidencia.jsx";
 
 // nav: texto en el menú (null = no aparece)
 export const ROUTES = [
@@ -12,6 +13,7 @@ export const ROUTES = [
   { path: "/aula", page: AulaLimpia, nav: "Aula Limpia" },
   { path: "/tablero", page: Tablero, nav: "Tablero" },
   { path: "/maestro", page: Maestro, nav: "Plan de asma" },
+  { path: "/evidencia", page: Evidencia, nav: "Evidencia" },
 ];
 
 export function pageFor(path) {

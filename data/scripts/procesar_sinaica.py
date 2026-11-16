@@ -55,7 +55,16 @@ def limpiar(df: pd.DataFrame) -> pd.DataFrame:
         g.index.name = "fecha_hora"
         g["estacion"] = est
         num = [c for c in ("pm25", "pm10", "tmp", "hr", "vv") if c in g.columns]
-        g[num] = g[num].interpolate(limit=MAX_HUECO_H, limit_area="inside")
+        for columna in num:
+            original = g[columna]
+            if original.notna().sum() < 2 or not original.isna().any():
+                continue
+            # El limite de pandas rellena parcialmente huecos mas largos.
+            # Solo aceptamos corridas completas de hasta tres horas, con ambos extremos.
+            faltantes = original.isna()
+            longitud = faltantes.groupby(original.notna().cumsum()).transform("sum")
+            interpolada = original.interpolate(limit_area="inside")
+            g[columna] = original.where(~faltantes | (longitud > MAX_HUECO_H), interpolada)
         partes.append(g.reset_index())
     salida = pd.concat(partes, ignore_index=True)
     columnas = ["fecha_hora", "estacion"] + [c for c in ("pm25", "pm10", "tmp", "hr", "vv") if c in salida]
