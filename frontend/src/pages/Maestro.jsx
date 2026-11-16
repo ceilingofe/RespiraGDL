@@ -22,10 +22,10 @@ const alumnos = (n) => `${n} ${n === 1 ? "alumno" : "alumnos"}`;
 // Debe validarla un médico y siempre manda el plan de acción de cada alumno.
 // (Texto fijo del frontend, no viene de la API.)
 const PASOS_CRISIS = [
+  "Si le cuesta mucho respirar o hablar, está somnoliento o tiene labios azulados, llama al 911 de inmediato y avisa a la dirección y a su familia. No esperes a los siguientes pasos.",
   "Siéntalo derecho y llévalo a un lugar sin humo ni polvo. Quédate con él y háblale con calma.",
   "Ayúdalo a usar su inhalador de rescate como indica su plan de acción.",
-  "Espera unos minutos. Si no mejora, repite como indica su plan y avisa a la dirección.",
-  "Si le cuesta hablar, tiene los labios azulados o no mejora, llama al 911 y avisa a su familia.",
+  "Si no mejora o empeora, solicita atención urgente y sigue las indicaciones del servicio de emergencias y del plan individual. No improvises dosis ni repeticiones.",
 ];
 
 export default function Maestro() {
@@ -48,6 +48,7 @@ export default function Maestro() {
   return (
     <main className="rg-app rg-app--phone">
       <NotaDatos origen={origen} extra="La guía es un ejemplo y debe validarla un médico." />
+      <p className="rg-muted">Orientación general: <a href="https://www.nhlbi.nih.gov/es/salud/asma/crisis" target="_blank" rel="noreferrer">NIH · crisis de asma</a>. Ante signos de alarma, pide atención inmediata.</p>
       <div className="rg-phone-bar">
         <span className="rg-muted">Vista del maestro · {salon.momento}</span>
         <button type="button" className="rg-pill rg-pill--blue rg-tap" onClick={salir}>Salir</button>

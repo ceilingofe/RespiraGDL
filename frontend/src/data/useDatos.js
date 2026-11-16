@@ -68,7 +68,8 @@ export function useTableroDatos(modo, seleccionado) {
       }));
       const fallas = [e, s, p].filter((r) => !llego(r)).length;
       const simuladas = (llego(n) && haySimuladas(n.value)) || (llego(p) && Boolean(p.value.simulado));
-      setOrigen({ estado: fallas === 3 ? "demo" : fallas ? "parcial" : "api", simuladas: fallas === 3 || simuladas });
+      setOrigen({ estado: fallas === 3 ? "demo" : fallas ? "parcial" : "api", simuladas: fallas === 3 || simuladas,
+        desactualizado: llego(p) && Boolean(p.value.desactualizado), fecha: llego(p) ? p.value.fecha : null });
     })();
   }, [modo, vuelta, vivo]);
 
@@ -112,7 +113,8 @@ export function useMaestraDatos(modo, salonId) {
       if (llego(h)) {
         desdeApi.current = true;
         setSalon(h.value);
-        setOrigen({ estado: "api", simuladas: llego(n) && haySimuladas(n.value) });
+        setOrigen({ estado: "api", simuladas: Boolean(h.value.simulado) || (llego(n) && haySimuladas(n.value)),
+          desactualizado: Boolean(h.value.desactualizado) });
       } else {
         // La API sí responde, pero no tiene la vista de la maestra (p. ej. antes del PR #38).
         desdeApi.current = false;

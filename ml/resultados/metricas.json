@@ -1,11 +1,11 @@
 {
   "estacion": "Miravalle",
   "sintetico": false,
-  "generado": "2026-11-14T07:02:10",
-  "dias_entrenamiento": 938,
-  "dias_prueba": 283,
+  "generado": "2026-11-16T03:43:22",
+  "dias_entrenamiento": 903,
+  "dias_prueba": 276,
   "periodo_entrenamiento": [
-    "2020-01-01",
+    "2020-01-05",
     "2023-12-31"
   ],
   "periodo_prueba": [
@@ -13,20 +13,20 @@
     "2024-12-30"
   ],
   "persistencia": {
-    "mae": 11.53,
-    "rmse": 17.47,
-    "acierto_semaforo_pct": 73.1,
-    "dias_amarillo_o_rojo_detectados_pct": 79.1,
-    "falsas_alarmas_pct": 21.4
+    "mae": 11.56,
+    "rmse": 17.36,
+    "acierto_semaforo_pct": 72.5,
+    "dias_amarillo_o_rojo_detectados_pct": 78.7,
+    "falsas_alarmas_pct": 21.8
   },
   "modelo": {
-    "mae": 10.42,
-    "rmse": 14.89,
-    "acierto_semaforo_pct": 72.4,
-    "dias_amarillo_o_rojo_detectados_pct": 83.5,
-    "falsas_alarmas_pct": 26.3
+    "mae": 10.96,
+    "rmse": 15.23,
+    "acierto_semaforo_pct": 69.2,
+    "dias_amarillo_o_rojo_detectados_pct": 79.4,
+    "falsas_alarmas_pct": 28.1
   },
-  "mejora_mae_pct": 9.6,
+  "mejora_mae_pct": 5.2,
   "se_usa": "modelo",
   "variables": [
     "pm_escolar",

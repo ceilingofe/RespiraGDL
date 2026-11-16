@@ -57,21 +57,20 @@ export function Footer() {
         <div>
           <Logo big />
           <p className="rg-footer__note">
-            Respira GDL orienta, recuerda y alerta. No es una herramienta de diagnóstico. Solo usa datos agregados y anónimos.
+            Respira GDL orienta, recuerda y alerta. No es una herramienta de diagnóstico. Esta demo usa escenarios ficticios; no introduzcas datos reales de menores.
           </p>
         </div>
         <div>
           <h4>Proyecto</h4>
           <a href="#/#como">Cómo funciona</a>
-          <a href="#/#escuelas">Escuelas piloto</a>
+          <a href="#/#escuelas">Piloto propuesto</a>
+          <a href="#/evidencia">Evidencia y limitaciones</a>
           <a href="https://github.com/ceilingofe/respiragdl">Código en GitHub</a>
         </div>
         <div>
           <h4>Datos del catálogo</h4>
           <span>39 · Calidad del aire</span>
           <span>11 · Anuario de morbilidad</span>
-          <span>28 · Estadísticas educativas</span>
-          <span>12 · Mortalidad</span>
         </div>
         <div>
           <h4>Hackathon</h4>

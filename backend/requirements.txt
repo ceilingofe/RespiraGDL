@@ -2,9 +2,6 @@ fastapi
 uvicorn[standard]
 sqlmodel
 httpx
-pandas
-openpyxl
-scikit-learn
-joblib
+-r ../ml/requirements-reproducir.txt
 python-dotenv
 pytest

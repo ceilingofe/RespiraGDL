@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Navbar, Footer, useReveal } from "./components/Layout.jsx";
 import ErrorBoundary from "./components/ErrorBoundary.jsx";
 import { pageFor } from "./routes.js";
@@ -49,7 +49,7 @@ export default function App() {
     <>
       <Navbar route={path} sesion={sesion} />
       <ErrorBoundary resetKey={path}>
-        <Page />
+        <Suspense fallback={<main className="rg-app" role="status">Abriendo la vista…</main>}><Page /></Suspense>
       </ErrorBoundary>
       <Footer />
     </>

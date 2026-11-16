@@ -135,6 +135,32 @@ def salon_hoy(conn, cfg: Settings, salon, momento: datetime | None = None) -> di
     if pm is None:
         pm_esc, fuente, _ = _pm_y_fuente(conn, salon["escuela"], cfg, ahora)
         pm = None if pm_esc is None else int(round(pm_esc))
+    procedencia = {"simulado": False, "desactualizado": True, "ultima_lectura": None}
+    if pm is not None and fuente.startswith("sensor"):
+        filtro = ""
+        argumentos = [salon["escuela"], (ahora - timedelta(minutes=cfg.ventana_min)).isoformat(), ahora.isoformat()]
+        if fuente == "sensor del salón":
+            filtro = " AND salon_id = ?"
+            argumentos.append(salon["id"])
+        elif fuente == "sensor de la escuela":
+            filtro = " AND salon_id IS NULL"
+        f = conn.execute(
+            "SELECT MAX(ts) AS ultima, MAX(simulada) AS simulada FROM lecturas "
+            "WHERE escuela = ? AND ubicacion = 'fuera' AND ts BETWEEN ? AND ?" + filtro,
+            argumentos,
+        ).fetchone()
+        ultima = f["ultima"]
+        edad = (ahora - datetime.fromisoformat(ultima)).total_seconds() if ultima else -1
+        procedencia = {"simulado": bool(f["simulada"]), "ultima_lectura": ultima,
+                       "desactualizado": edad < 0 or edad > cfg.minutos_sin_datos * 60}
+    elif pm is not None:
+        p = pronostico_actual(conn, cfg)
+        if p:
+            procedencia["simulado"] = bool(p.get("simulado"))
+            procedencia["desactualizado"] = (p["fuente"] == "sensor" or bool(p.get("desactualizado"))
+                                              or p["fecha_base"] != ahora.date().isoformat())
+    if procedencia["desactualizado"]:
+        pm = None  # Un color derivado de un dato vencido aparentaría vigencia.
     n = nivel(pm) or {}
     return {
         "titulo": f"Maestra {e['grupo']}",
@@ -153,6 +179,7 @@ def salon_hoy(conn, cfg: Settings, salon, momento: datetime | None = None) -> di
         "conAsma": e["asma"],
         "tareas": tareas_del_dia(conn, e["id"], n.get("semaforo"), ahora.date().isoformat()),
         "fuente": fuente,
+        **procedencia,
     }
 
 

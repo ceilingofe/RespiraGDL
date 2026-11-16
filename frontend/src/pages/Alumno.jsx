@@ -48,7 +48,7 @@ export default function Alumno() {
 
   return (
     <main className="rg-app rg-app--phone">
-      <div className="rg-demo-note">Demo: el plan se guarda solo en este navegador. No es un diagnóstico.</div>
+      <div className="rg-demo-note">Demo: usa datos ficticios. El plan se guarda solo en este navegador y no se comparte automáticamente con la maestra. No es un diagnóstico.</div>
       <div className="rg-phone-bar">
         <span className="rg-muted">Vista de la familia</span>
         <button type="button" className="rg-pill rg-pill--blue rg-tap" onClick={salir}>Salir</button>

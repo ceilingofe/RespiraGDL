@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel, Field
 
@@ -6,7 +8,7 @@ from app.config import get_settings
 from app.core import avisos as av
 from app.core import escuela as esc
 from app.core.estado import alertas as calcular_alertas
-from app.core.pronostico import pronostico_actual
+from app.core.pronostico import HORAS_ESCUELA, pronostico_actual
 
 router = APIRouter(prefix="/alertas", tags=["alertas"])
 
@@ -26,8 +28,37 @@ def hoy():
     with db.conexion() as conn:
         p = pronostico_actual(conn, cfg)
         activas = calcular_alertas(conn, cfg, p)
+        ahora = db.ahora()
+        ultima = None
+        simulado = False
+        desactualizado = True
+        if p is not None:
+            metricas = p.get("metricas_modelo") or {}
+            simulado = bool(p.get("simulado") or metricas.get("sintetico"))
+            desactualizado = bool(p.get("desactualizado")) or p["fecha_base"] != ahora.date().isoformat()
+            if p["fuente"] == "sensor":
+                # La misma ventana que usa _sensor_fuera_hoy: el origen corresponde
+                # a los datos consumidos, no a sensores ajenos ni a lecturas de ayer.
+                inicio = ahora.replace(hour=min(HORAS_ESCUELA), minute=0, second=0)
+                fin = ahora.replace(hour=max(HORAS_ESCUELA), minute=59, second=59)
+                fila = conn.execute(
+                    "SELECT MAX(ts) AS ultima, MAX(simulada) AS simulada FROM lecturas "
+                    "WHERE ubicacion='fuera' AND ts BETWEEN ? AND ?",
+                    (inicio.isoformat(), fin.isoformat()),
+                ).fetchone()
+                ultima = fila["ultima"]
+                simulado = simulado or bool(fila["simulada"])
+                edad = (ahora - datetime.fromisoformat(ultima)).total_seconds() if ultima else -1
+                desactualizado = desactualizado or edad < 0 or edad > cfg.minutos_sin_datos * 60
+    procedencia = {
+        "fecha_base": p["fecha_base"] if p else None,
+        "ultima_lectura": ultima,
+        "simulado": simulado,
+        "desactualizado": desactualizado,
+    }
     if p is None:
-        return {"nivel": None, "recomendacion": "Sin datos de calidad del aire todavía.", "alertas": activas}
+        return {"nivel": None, "recomendacion": "Sin datos de calidad del aire todavía.",
+                "alertas": activas, **procedencia}
     hoy_, manana = p["dias"]
     return {
         "nivel": hoy_["semaforo"],            # verde | amarillo | rojo (compatible con la versión anterior)
@@ -38,6 +69,7 @@ def hoy():
         "manana": manana,
         "fuente": p["fuente"],
         "alertas": activas,
+        **procedencia,
     }
 
 

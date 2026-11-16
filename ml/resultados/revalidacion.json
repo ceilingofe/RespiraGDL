@@ -1,0 +1,187 @@
+{
+  "verified_utc": "2026-11-16T09:43:44.276640+00:00",
+  "old_metrics": {
+    "estacion": "Miravalle",
+    "sintetico": false,
+    "generado": "2026-11-14T07:02:10",
+    "dias_entrenamiento": 938,
+    "dias_prueba": 283,
+    "periodo_entrenamiento": [
+      "2020-01-01",
+      "2023-12-31"
+    ],
+    "periodo_prueba": [
+      "2024-01-01",
+      "2024-12-30"
+    ],
+    "persistencia": {
+      "mae": 11.53,
+      "rmse": 17.47,
+      "acierto_semaforo_pct": 73.1,
+      "dias_amarillo_o_rojo_detectados_pct": 79.1,
+      "falsas_alarmas_pct": 21.4
+    },
+    "modelo": {
+      "mae": 10.42,
+      "rmse": 14.89,
+      "acierto_semaforo_pct": 72.4,
+      "dias_amarillo_o_rojo_detectados_pct": 83.5,
+      "falsas_alarmas_pct": 26.3
+    },
+    "mejora_mae_pct": 9.6,
+    "se_usa": "modelo",
+    "variables": [
+      "pm_escolar",
+      "pm_dia",
+      "pm_tarde",
+      "pm_max",
+      "pm_escolar_ayer",
+      "pm_media_3d",
+      "tmp",
+      "hr",
+      "vv",
+      "dow_manana",
+      "mes_sin",
+      "mes_cos"
+    ]
+  },
+  "new_metrics": {
+    "estacion": "Miravalle",
+    "sintetico": false,
+    "generado": "2026-11-16T03:43:22",
+    "dias_entrenamiento": 903,
+    "dias_prueba": 276,
+    "periodo_entrenamiento": [
+      "2020-01-05",
+      "2023-12-31"
+    ],
+    "periodo_prueba": [
+      "2024-01-01",
+      "2024-12-30"
+    ],
+    "persistencia": {
+      "mae": 11.56,
+      "rmse": 17.36,
+      "acierto_semaforo_pct": 72.5,
+      "dias_amarillo_o_rojo_detectados_pct": 78.7,
+      "falsas_alarmas_pct": 21.8
+    },
+    "modelo": {
+      "mae": 10.96,
+      "rmse": 15.23,
+      "acierto_semaforo_pct": 69.2,
+      "dias_amarillo_o_rojo_detectados_pct": 79.4,
+      "falsas_alarmas_pct": 28.1
+    },
+    "mejora_mae_pct": 5.2,
+    "se_usa": "modelo",
+    "variables": [
+      "pm_escolar",
+      "pm_dia",
+      "pm_tarde",
+      "pm_max",
+      "pm_escolar_ayer",
+      "pm_media_3d",
+      "tmp",
+      "hr",
+      "vv",
+      "dow_manana",
+      "mes_sin",
+      "mes_cos"
+    ]
+  },
+  "summary_comparison": [
+    {
+      "estacion": "Centro",
+      "desde_old": "2020-01-01",
+      "hasta_old": "2024-12-31",
+      "horas_old": 43848,
+      "pct_pm25_con_dato_old": 70.0,
+      "pm25_promedio_old": 20.0,
+      "dias_promedio24h_mayor_25_old": 372,
+      "desde_new": "2020-01-01",
+      "hasta_new": "2024-12-31",
+      "horas_new": 43848,
+      "pct_pm25_con_dato_new": 68.3,
+      "pm25_promedio_new": 19.9,
+      "dias_promedio24h_mayor_25_new": 369
+    },
+    {
+      "estacion": "Las Pintas",
+      "desde_old": "2020-01-01",
+      "hasta_old": "2024-12-31",
+      "horas_old": 43848,
+      "pct_pm25_con_dato_old": 66.7,
+      "pm25_promedio_old": 39.5,
+      "dias_promedio24h_mayor_25_old": 812,
+      "desde_new": "2020-01-01",
+      "hasta_new": "2024-12-31",
+      "horas_new": 43848,
+      "pct_pm25_con_dato_new": 64.4,
+      "pm25_promedio_new": 39.2,
+      "dias_promedio24h_mayor_25_new": 802
+    },
+    {
+      "estacion": "Miravalle",
+      "desde_old": "2020-01-01",
+      "hasta_old": "2024-12-31",
+      "horas_old": 43848,
+      "pct_pm25_con_dato_old": 68.6,
+      "pm25_promedio_old": 25.2,
+      "dias_promedio24h_mayor_25_old": 571,
+      "desde_new": "2020-01-01",
+      "hasta_new": "2024-12-31",
+      "horas_new": 43848,
+      "pct_pm25_con_dato_new": 67.2,
+      "pm25_promedio_new": 25.3,
+      "dias_promedio24h_mayor_25_new": 566
+    },
+    {
+      "estacion": "Santa Fe",
+      "desde_old": "2020-01-01",
+      "hasta_old": "2024-12-31",
+      "horas_old": 43837,
+      "pct_pm25_con_dato_old": 42.5,
+      "pm25_promedio_old": 27.2,
+      "dias_promedio24h_mayor_25_old": 412,
+      "desde_new": "2020-01-01",
+      "hasta_new": "2024-12-31",
+      "horas_new": 43837,
+      "pct_pm25_con_dato_new": 41.6,
+      "pm25_promedio_new": 27.3,
+      "dias_promedio24h_mayor_25_new": 400
+    }
+  ],
+  "clean_rows": 175381,
+  "station_rows": {
+    "Centro": 43848,
+    "Las Pintas": 43848,
+    "Miravalle": 43848,
+    "Santa Fe": 43837
+  },
+  "artifact_sha256": {
+    "data/processed/simaj_horario.csv": "38f584c93f594eea82628811993bcf4549c1c8a082896ef8ed89bb0adaabb1ff",
+    "data/processed/resumen_datos.csv": "4be0aadf81b66ee90c57cf1b3e159d0e99e0375828033e9b9c738cfd40d4bef1",
+    "ml/modelos/pronostico_pm25.joblib": "e5a42af266691adbf7bafc5837bf16a4c420c532a9e5972d9f6af4b690d4e8f7",
+    "ml/resultados/metricas.json": "9582b0435f165ca44a55b21219f8e476d1131f19bcf5ba502531e912847668f9",
+    "ml/resultados/metodo_resultados.md": "7336466e69f556ef82a4b6e15e10b6e995a52403ce4deb4adac87f6e1178395b",
+    "ml/resultados/predicciones_prueba.csv": "76736dcea309a13651c17e846fe7eeca21a5e693e85768cef0d980fa894cea20",
+    "ml/resultados/pred_vs_real.png": "974a4af697198a20d31d85ec10d8eb868dec20c821f9d49f51e5c10955495aaa"
+  },
+  "pipeline_source_sha256": {
+    "data/scripts/importar_simaj.py": "220033fcbbbdbbb15f0db54a1b32e7e583f764ad3a26414792378dc84bb9f30f",
+    "data/scripts/procesar_sinaica.py": "ddf3c457f35aeda558d69d14146bfb961a36e056d76a32ae43ac7adcaac06ccd",
+    "ml/entrenar.py": "15e1b2518310bc34515df5c999409aeb637fd987668658a79020421e6d51dd1a",
+    "backend/app/core/pronostico.py": "b1aab18408be1002d5347037b5cf463daf153f6e547d2952b1ed50cfe908443b",
+    "backend/app/core/semaforo.py": "afb5071c6ab7a07a68310951ef18a6375b41af8ab93401276011e9b5cca218ce"
+  },
+  "methodology_limits": [
+    "Daily PM2.5 means above 25 use any available hours; they are exploratory, not daily compliance estimates.",
+    "The single 2024 holdout is evaluated once without uncertainty intervals or external validation.",
+    "Station historical prediction is not a live school measurement or clinical evaluation.",
+    "The 7:00-14:00 school average differs from the official weighted 12-hour traffic-light averaging window.",
+    "Offline interpolation is restricted within calendar dates; it does not cross predictor/target dates.",
+    "Current scikit-learn version differs from the old unrecorded training environment, so metric differences cannot be attributed only to cleaning."
+  ],
+  "pipeline_source_note": "Huellas del codigo en el momento de evaluacion. Despues se agrego la salida JSON al comando de limpieza, sin cambiar la funcion limpiar. La recarga del modelo y las predicciones se verifican tambien en CI."
+}

@@ -34,8 +34,8 @@ export default function AulaLimpia() {
               </div>
               <p className="rg-muted">
                 {!s.filtro ? "Sin filtro todavía."
-                  : s.proteccion != null ? `Filtro activo · ${s.proteccion} % protegido frente al aire de fuera.`
-                    : "Filtro activo · sin lecturas en la última hora."}
+                  : s.proteccion != null ? `Filtro registrado · diferencia dentro/fuera: ${s.proteccion} %. No confirma que el equipo esté encendido.`
+                    : "Filtro registrado · sin lecturas en la última hora."}
               </p>
             </div>
           );

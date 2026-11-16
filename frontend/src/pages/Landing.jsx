@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { ArtAula, ArtAsma, ArtPronostico, Tile } from "../art/Art.jsx";
+import resumenDatos from "../../../data/processed/resumen_datos.json";
+const MIRAVALLE = resumenDatos.find((e) => e.estacion === "Miravalle");
 
 const TEMAS = [
   {
     id: "green",
     pilar: "Aula Limpia",
-    sub: "Filtro casero y dos sensores",
+    sub: "Diseño de filtro y monitoreo",
     t1: "Aire limpio,",
     t2: "aulas seguras",
-    p: "No podemos limpiar la ciudad en un día, pero sí el aire que respiran los niños dentro del salón, y medirlo en vivo.",
+    p: "Un prototipo para ayudar a las escuelas a anticipar días de aire contaminado y organizar acciones de prevención. La reducción con filtro aún debe medirse.",
     Art: ArtAula,
   },
   {
@@ -54,7 +56,7 @@ function Hero() {
           <span>{tema.t2}</span>
         </h1>
         <p>{tema.p}</p>
-        <a className="rg-pill rg-hero__cta" href="#/#como">Cómo funciona</a>
+        <a className="rg-pill rg-hero__cta" href="#/simulador">Explorar la escuela 3D ↗</a>
       </div>
       <div className="rg-pillars" role="tablist" aria-label="Pilares del proyecto">
         {TEMAS.map((t, k) => (
@@ -82,8 +84,8 @@ function Intro() {
       <div className="rg-split-intro__text">
         <h2>Protegemos a los niños donde pasan seis horas al día</h2>
         <p>
-          La zona metropolitana de Guadalajara rebasa la norma de PM2.5 unos 150 días al año. En los salones nadie mide ni
-          filtra el aire, y los niños con asma son los primeros en sentirlo.
+          El resumen SIMAJ de Miravalle registra {MIRAVALLE.dias_promedio24h_mayor_25} días observados con promedio de PM2.5 mayor a 25 µg/m³
+          en 2020–2024, con {MIRAVALLE.pct_pm25_con_dato} % de cobertura horaria. Empezamos con una escuela ficticia para probar el flujo de prevención.
         </p>
         <a className="rg-pill rg-pill--blue" href="#/tablero">Ver la demo</a>
       </div>
@@ -96,7 +98,7 @@ const PROBLEMAS = [
   ["humo", "PM2.5 en la ciudad"],
   ["asma", "Asma infantil"],
   ["salon", "Salones sin filtrar"],
-  ["norma", "~150 días fuera de norma"],
+  ["norma", `${MIRAVALLE.dias_promedio24h_mayor_25} días observados · 2020–2024`],
   ["recreo", "Recreo al aire libre"],
   ["familia", "Familias sin aviso"],
 ];
@@ -106,7 +108,7 @@ function Problemas() {
     <section className="rg-section rg-reveal">
       <header className="rg-section__head">
         <h2>Lo que queremos cambiar,<br />un salón a la vez</h2>
-        <p>En 2024 murieron en Jalisco 1,843 personas por EPOC y asma, y 3,979 por influenza y neumonía (INEGI). La exposición empieza en la infancia.</p>
+        <p>El Anuario de Morbilidad reporta 13,613 casos nuevos de asma en Jalisco en 2023, en todas las edades. Es contexto de salud pública; no una estimación de asma infantil causada por contaminación. <a href="#/evidencia">Ver fuentes y límites</a>.</p>
       </header>
       <div className="rg-grid3">
         {PROBLEMAS.map(([k, label]) => (
@@ -132,8 +134,8 @@ function Como() {
         <div className="rg-overlap__card rg-surface-mint">
           <h3>Dentro contra fuera</h3>
           <p>
-            Un filtro casero (ventilador y 4 filtros MERV-13) y dos sensores PM2.5 con ESP32. El tablero calcula en vivo cuánta
-            contaminación no entra al salón. En aulas de Arizona este filtro bajó el PM2.5 un 43 %.
+            El diseño contempla un ventilador, cuatro filtros MERV-13 y dos sensores PM2.5. En el montaje actual no contamos
+            con esos componentes: el tablero demuestra la comparación con lecturas simuladas. El MQ-135 no mide partículas.
           </p>
           <a className="rg-pill" href="#/tablero">Ver el tablero</a>
         </div>
@@ -143,8 +145,8 @@ function Como() {
         <div className="rg-overlap__card rg-surface-ice">
           <h3>Un plan, no una alarma</h3>
           <p>
-            El maestro ve el semáforo del día, cuántos alumnos con asma tiene y una guía paso a paso validada por un médico. Las
-            familias reciben el aviso a las 7:00 por mensaje.
+            El maestro consulta un semáforo, un conteo ficticio y una guía orientativa pendiente de revisión médica.
+            Los avisos demuestran el flujo de comunicación; no garantizamos entregas automáticas a una hora fija.
           </p>
           <a className="rg-pill rg-pill--blue" href="#/maestro">Ver vista del maestro</a>
         </div>
@@ -163,8 +165,8 @@ function Escuelas() {
   return (
     <section id="escuelas" className="rg-section rg-reveal">
       <header className="rg-section__head">
-        <h2>Escuelas piloto</h2>
-        <p>Primarias en las zonas con peores registros del SIMAJ. Un kit cuesta cerca de $3,700 MXN por salón.</p>
+        <h2>Zonas para un piloto propuesto</h2>
+        <p>Escenarios ficticios cercanos a estaciones SIMAJ; no son escuelas participantes. Presupuesto preliminar del diseño completo: cerca de $3,700 MXN por salón, sujeto a cotización.</p>
       </header>
       <div className="rg-grid3">
         {ESCUELAS.map(([n, m, k, s]) => (
@@ -181,17 +183,17 @@ function Escuelas() {
 }
 
 const HISTORIAS = [
-  ["Mañana: calidad del aire mala en Miravalle", "Pronóstico · 13 nov", "humo", "#/tablero"],
-  ["El 3°A respira 70 % menos PM2.5 con el filtro", "Medición · 12 nov", "salon", "#/tablero"],
-  ["Recreo adentro para 4 alumnos con asma", "Plan de asma · 12 nov", "asma", "#/maestro"],
-  ["Aviso enviado a las familias a las 7:00", "Bot de familias · 12 nov", "familia", "#/maestro"],
+  ["Consultar el pronóstico de Miravalle", "Ejemplo simulado", "humo", "#/tablero"],
+  ["Comparar PM2.5 dentro y fuera del 3°A", "Ejemplo simulado · no es medición física", "salon", "#/tablero"],
+  ["Revisar actividades para un grupo con asma", "Ejemplo simulado", "asma", "#/maestro"],
+  ["Preparar un aviso a las familias", "Ejemplo simulado · no es constancia de envío", "familia", "#/maestro"],
 ];
 
 function Historias() {
   return (
     <section className="rg-section rg-reveal">
       <div className="rg-stories">
-        <h2>Lo que pasó hoy en la escuela</h2>
+        <h2>Lo que puedes probar en la demo</h2>
         <div className="rg-stories__grid">
           {HISTORIAS.map(([t, d, k, href]) => (
             <a key={t} className="rg-story" href={href}>
@@ -224,7 +226,7 @@ function Unete() {
         ))}
       </div>
       <p className="rg-unete__total">
-        Costo estimado: <strong>${(n * 3700).toLocaleString("es-MX")} MXN</strong>
+        Presupuesto ilustrativo, sin cotizar: <strong>${(n * 3700).toLocaleString("es-MX")} MXN</strong>
       </p>
       <a className="rg-pill rg-pill--primary" href="https://github.com/ceilingofe/respiragdl">Ver cómo armarlo</a>
     </section>
@@ -234,6 +236,7 @@ function Unete() {
 export default function Landing() {
   return (
     <>
+      <div className="rg-demo-note" role="status">Prototipo de hackathon · escuelas ficticias y ejemplos simulados. <a href="#/evidencia">Consulta la evidencia y el alcance real</a>.</div>
       <Hero />
       <Intro />
       <Problemas />
